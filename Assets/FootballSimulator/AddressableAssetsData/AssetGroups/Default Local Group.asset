@@ -25,14 +25,6 @@ MonoBehaviour:
     m_Address: Assets/Arts/UI/TeamLogos/Materials/TeamLogo1Material.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 0f0540cd3ba69624cbb59f08815db707
-    m_Address: Assets/Arts/UI/Position.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 62598f4d03a6e344c8c4b420a84931ba
-    m_Address: Assets/Arts/UI/BigScoreBoard/scorer_BigBoard.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 0ec22be2b83e1634d8d2784649ca76cd
     m_Address: Assets/Arts/UI/TeamLogos/Materials/ScoreboardColorMaterial.mat
     m_ReadOnly: 0
@@ -253,10 +245,6 @@ MonoBehaviour:
     m_Address: Assets/Cameras/HighStadiumCamera.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: e062f627b9504e345b2e6dfb3c3af775
-    m_Address: Assets/Arts/UI/MatchCompletedPanel/Statistics/StatisticsOptionMember.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: dceeb83e60dacef489d603eceb3e1795
     m_Address: Assets/Cameras/TeleCamera.asset
     m_ReadOnly: 0
@@ -271,76 +259,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 2825b12e06ba5064287c3a6553fc7565
     m_Address: Assets/PlayableFormations/Balanced/5_2_3.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 97f5055f4d1012a40b551f662d8dedd9
-    m_Address: Assets/Arts/UI/MatchThemes/MatchThemeBasic.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: dcc6ace83d80f2f49b18c1d506e72206
-    m_Address: Assets/Arts/UI/MatchThemes/TeamPresentation/PresentationSquadPlayer.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 8cb6992a32f171443b9e24a5042f2126
-    m_Address: Assets/Arts/UI/MatchThemes/TeamPresentation/PresentationSquadPlayer_AWAY
-      Variant.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ed80f84f3ca9fa34d85188e0241bed6d
-    m_Address: Assets/Arts/UI/MatchThemes/MatchStartPanel/HomeSquadPlayerPresentationUpcomingMatch.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 74a64fb6572c0a446a1ec879bf639a6d
-    m_Address: Assets/Arts/UI/MatchThemes/MatchStartPanel/AwaySquadPlayerPresentationUpcomingMatch
-      Variant.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: c255fb1b498437048a37ab77881251b2
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionThemes/League5Theme.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e6c58a5fab9c6c84f9a754368e4d9229
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionThemes/League4Theme.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 7fe178f4e39959740b64f265363fdec9
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionThemes/League3Theme.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 09ae8c4e4dc836941af09101ce4bd447
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionThemes/League2Theme.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 60d449cf7dfd38a46bf17838200bb780
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionThemes/League1Theme.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 19bd3cefb9cfca74cb6c69f47d3b6677
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionThemes/ChampionsCup.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 2009acc76ea6be34197585281db1cfb1
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionThemes/SuperCup.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 8273c44fc60a9184bb5e07550783d36d
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionThemes/ConferenceCup.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 4b8262c90d685664bad3b1e9054b490f
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionThemes/TownCup.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: d513d0eaf5353c847a327c617775ed87
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionThemes/RegionalCup.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 0b52b4d9ca0d2c545bbbfdbabf096cab
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionThemes/ChallengeCup.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 165bc72df6a13824ea4f9a329ca40b91
-    m_Address: Assets/Arts/UI/MatchThemes/CompetitionMatchThemes/Training.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: fc2e6e10acc89024f9343b9731d8297b

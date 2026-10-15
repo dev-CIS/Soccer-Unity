@@ -4,8 +4,6 @@ using FStudio.Loaders;
 using FStudio.Graphics.TimeOfDay;
 using FStudio.UI;
 using FStudio.UI.Events;
-using FStudio.UI.GamepadInput;
-using FStudio.UI.MatchThemes;
 using FStudio.Utilities;
 using Shared.Responses;
 using FStudio.Data;
@@ -26,9 +24,6 @@ namespace FStudio.MatchEngine {
         public static async Task CreateMatch(MatchCreateRequest matchData) {
             // close all UI.
             EventManager.Trigger(new CloseAllPanelsEvent());
-
-            // clear all snap history.
-            SnapManager.Clear();
 
             // load the match UI
             await UILoader.Current.MatchUILoader.Load();
@@ -129,9 +124,7 @@ namespace FStudio.MatchEngine {
             // unload ball & stadium.
             template.ballLoader.UnloadBall();
             template.stadiumLoader.Unload();
-            // 
-
-            SnapManager.Clear();
+            //
 
             UILoader.Current.MatchUILoader.Unload();
 
