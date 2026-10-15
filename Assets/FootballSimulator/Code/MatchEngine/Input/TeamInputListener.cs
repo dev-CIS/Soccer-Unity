@@ -16,6 +16,7 @@ using FStudio.MatchEngine.Tactics;
 using FStudio.MatchEngine.Cameras;
 using FStudio.MatchEngine.Players.PlayerController;
 using static UnityEngine.Rendering.DebugUI;
+using FStudio.UIToolkit;
 
 namespace FStudio.MatchEngine.Input {
     public class TeamInputListener : InputListener {
@@ -45,8 +46,7 @@ namespace FStudio.MatchEngine.Input {
         /// </summary>
         private Vector3 direction;
 
-        private readonly Transform inputPointer;
-        private readonly Transform inputPointerFollower;
+        private readonly CISPlayerIndicator inputPointer;
 
         public TeamInputListener(
             int playerIndex, 
@@ -54,8 +54,7 @@ namespace FStudio.MatchEngine.Input {
 
             this.gameTeam = gameTeam;
 
-            inputPointer = Object.Instantiate(Resources.Load<Transform>("UI/InputPointer"));
-            inputPointerFollower = inputPointer.GetChild(0);
+            inputPointer = CISPlayerIndicator.Create(playerIndex);
 
             // create direction listener.
             RegisterAction("Move", MoveInput);
@@ -393,8 +392,7 @@ namespace FStudio.MatchEngine.Input {
             var arrowIndicatorTransform =
                 GetArrowIndicatorPositionAndAngle(Camera.main.WorldToScreenPoint(ActivePlayer.Position + inputWorldOffset));
 
-            inputPointerFollower.position = arrowIndicatorTransform.position;
-            inputPointerFollower.rotation = arrowIndicatorTransform.rotation;
+            inputPointer.Place(arrowIndicatorTransform.position, arrowIndicatorTransform.rotation);
         }
 
         private (Vector2 position, Quaternion rotation) GetArrowIndicatorPositionAndAngle(

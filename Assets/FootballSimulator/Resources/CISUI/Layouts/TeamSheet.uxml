@@ -1,0 +1,40 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:cis="FStudio.UIToolkit" editor-extension-mode="False">
+    <ui:VisualElement name="sheet" class="sheet" picking-mode="Ignore">
+        <ui:VisualElement name="stripe" class="sheet__stripe" picking-mode="Ignore" />
+        <ui:VisualElement name="glow" class="sheet__glow cis-grad-glow" picking-mode="Ignore" />
+
+        <ui:VisualElement class="sheet__header" picking-mode="Ignore">
+            <cis:CISCrest name="crest" bake-size="256" class="sheet__crest" picking-mode="Ignore" />
+            <ui:VisualElement class="sheet__title" picking-mode="Ignore">
+                <ui:VisualElement class="cis-row" picking-mode="Ignore">
+                    <ui:Label name="side" text="HOME" class="sheet__side" picking-mode="Ignore" />
+                    <ui:VisualElement name="controller" class="sheet__controller" picking-mode="Ignore">
+                        <cis:CISIcon kind="Gamepad" class="sheet__controller-icon" picking-mode="Ignore" />
+                        <ui:Label name="controller-text" text="YOU" class="sheet__controller-text" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label name="name" text="TEAM" class="sheet__name" picking-mode="Ignore" />
+                <ui:Label name="formation" text="4-4-2" class="sheet__formation" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <cis:CISRatingBadge name="ovr" caption="OVR" picking-mode="Ignore" />
+        </ui:VisualElement>
+
+        <ui:VisualElement class="sheet__body" picking-mode="Ignore">
+            <cis:CISPitch name="pitch" class="sheet__pitch" picking-mode="Ignore" />
+            <ui:VisualElement name="list" class="sheet__list" picking-mode="Ignore" />
+        </ui:VisualElement>
+
+        <ui:VisualElement class="sheet__footer" picking-mode="Ignore">
+            <cis:CISKitView name="kit" class="sheet__kit" picking-mode="Ignore" />
+            <ui:VisualElement class="sheet__kit-info" picking-mode="Ignore">
+                <ui:Label text="MATCH KIT" class="cis-eyebrow" picking-mode="Ignore" />
+                <ui:Label name="kit-name" text="HOME KIT" class="sheet__kit-name" picking-mode="Ignore" />
+                <ui:VisualElement class="sheet__swatches" picking-mode="Ignore">
+                    <ui:VisualElement name="kit-color-1" class="sheet__swatch" picking-mode="Ignore" />
+                    <ui:VisualElement name="kit-color-2" class="sheet__swatch" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <cis:CISButton name="kit-switch" label="SWITCH KIT" icon="Swap" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

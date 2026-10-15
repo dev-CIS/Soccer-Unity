@@ -1,0 +1,1056 @@
+/* =====================================================================
+   CIS SOCCER — match presentation
+   pre-match team sheets, HUD, goal flash, info board, pause, full time
+   ===================================================================== */
+
+/* ---------- pre-match ---------- */
+
+.prematch {
+    background-color: var(--cis-bg);
+}
+
+.prematch__row {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 104px;
+    bottom: 84px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.sheet {
+    width: 740px;
+    height: 790px;
+    padding: 26px 28px;
+    background-color: var(--cis-surface);
+    border-width: 1px;
+    border-color: var(--cis-stroke);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.sheet__stripe {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 6px;
+}
+
+.sheet__glow {
+    position: absolute;
+    left: -140px;
+    right: -140px;
+    top: -280px;
+    height: 600px;
+    opacity: 0.32;
+}
+
+.sheet__header {
+    flex-direction: row;
+    align-items: center;
+    height: 96px;
+}
+
+.sheet__crest {
+    width: 92px;
+    height: 92px;
+}
+
+.sheet__title {
+    flex-grow: 1;
+    margin-left: 18px;
+}
+
+.sheet__side {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: var(--cis-text-dim);
+}
+
+.sheet__controller {
+    flex-direction: row;
+    align-items: center;
+    height: 24px;
+    padding: 0 10px 0 8px;
+    margin-left: 12px;
+    border-radius: 12px;
+    background-color: var(--cis-accent);
+}
+
+.sheet__controller-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    --icon-color: #03150D;
+}
+
+.sheet__controller-text {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--cis-accent-ink);
+}
+
+.sheet__controller--cpu {
+    background-color: var(--cis-surface-3);
+}
+
+.sheet__controller--cpu .sheet__controller-icon {
+    --icon-color: #8E9AB0;
+}
+
+.sheet__controller--cpu .sheet__controller-text {
+    color: var(--cis-text-dim);
+}
+
+.sheet__name {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 44px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 460px;
+}
+
+.sheet__formation {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--cis-text-dim);
+}
+
+.sheet__body {
+    flex-direction: row;
+    margin-top: 20px;
+    height: 470px;
+}
+
+.sheet__pitch {
+    width: 330px;
+    height: 470px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.sheet__list {
+    flex-grow: 1;
+    margin-left: 22px;
+}
+
+.lineup-row {
+    flex-direction: row;
+    align-items: center;
+    height: 42px;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--cis-stroke);
+}
+
+.lineup-row__num {
+    width: 34px;
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 19px;
+    color: var(--cis-text-faint);
+}
+
+.lineup-row__pos {
+    width: 46px;
+    height: 22px;
+    margin-right: 12px;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.lineup-row__pos-text {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #0A0E16;
+    -unity-text-align: middle-center;
+}
+
+.lineup-row__name {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: 17px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lineup-row__ovr {
+    width: 40px;
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 20px;
+    -unity-text-align: middle-right;
+}
+
+.sheet__footer {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 18px;
+    height: 124px;
+}
+
+.sheet__kit {
+    width: 124px;
+    height: 124px;
+    border-radius: 8px;
+    background-color: var(--cis-surface-2);
+}
+
+.sheet__kit-info {
+    flex-grow: 1;
+    margin-left: 18px;
+}
+
+.sheet__kit-name {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 28px;
+}
+
+.sheet__swatches {
+    flex-direction: row;
+    margin-top: 6px;
+}
+
+.sheet__swatch {
+    width: 30px;
+    height: 14px;
+    margin-right: 6px;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: var(--cis-stroke-strong);
+}
+
+.prematch__center {
+    width: 300px;
+    margin: 0 22px;
+}
+
+.prematch__vs {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 96px;
+    -unity-text-align: middle-center;
+}
+
+.prematch__info {
+    align-items: center;
+    margin: 6px 0 28px 0;
+}
+
+.prematch__info-label {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--cis-text-dim);
+    margin-top: 14px;
+    -unity-text-align: middle-center;
+}
+
+.prematch__info-value {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 26px;
+    -unity-text-align: middle-center;
+}
+
+.prematch__back {
+    margin-top: 12px;
+}
+
+/* ---------- pitch markers ---------- */
+
+.cis-pitch__marker {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border-width: 3px;
+    translate: -50% -50%;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    scale: 0.4 0.4;
+    transition: opacity 0.2s, scale 0.35s ease-out-back;
+}
+
+.cis-pitch__marker--in {
+    opacity: 1;
+    scale: 1 1;
+}
+
+.cis-pitch__number {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 17px;
+    -unity-text-align: middle-center;
+}
+
+.cis-pitch__tag {
+    position: absolute;
+    left: 50%;
+    bottom: -15px;
+    translate: -50% 0;
+    padding: 0 4px;
+    border-radius: 3px;
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #0A0E16;
+    -unity-text-align: middle-center;
+}
+
+/* ---------- HUD: scoreboard ---------- */
+
+.scoreboard {
+    position: absolute;
+    left: 56px;
+    top: 42px;
+    height: 50px;
+    flex-direction: row;
+    align-items: stretch;
+    opacity: 0;
+    translate: -24px 0;
+    transition: opacity 0.3s, translate 0.4s ease-out-cubic;
+}
+
+.scoreboard.cis-screen--in {
+    opacity: 1;
+    translate: 0 0;
+}
+
+.scoreboard__brand {
+    width: 52px;
+    background-color: var(--cis-accent);
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.scoreboard__brand-text {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--cis-accent-ink);
+}
+
+.scoreboard__team {
+    flex-direction: row;
+    align-items: center;
+    padding: 0 12px;
+    background-color: rgba(10, 16, 28, 0.94);
+}
+
+.scoreboard .cis-colors {
+    width: 6px;
+    height: 30px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.scoreboard__name {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 24px;
+    letter-spacing: 2px;
+    width: 64px;
+    -unity-text-align: middle-center;
+}
+
+.scoreboard__score {
+    flex-direction: row;
+    align-items: center;
+    padding: 0 12px;
+    background-color: #F3F6FB;
+}
+
+.scoreboard__goals {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 28px;
+    width: 24px;
+    color: #0A0E16;
+    -unity-text-align: middle-center;
+    transition: scale 0.35s ease-out-back, color 0.3s;
+}
+
+.scoreboard__goals--pop {
+    scale: 1.45 1.45;
+    color: #00A86B;
+}
+
+.scoreboard__dash {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 22px;
+    color: #56627A;
+    margin: 0 4px;
+}
+
+.scoreboard__clock {
+    justify-content: center;
+    padding: 0 14px;
+    background-color: rgba(5, 8, 15, 0.94);
+    border-left-width: 1px;
+    border-left-color: var(--cis-stroke);
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.scoreboard__time {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 24px;
+    letter-spacing: 1px;
+    width: 78px;
+    color: var(--cis-accent);
+    -unity-text-align: middle-center;
+}
+
+/* ---------- HUD: tactic meters ---------- */
+
+.tactic {
+    position: absolute;
+    bottom: 48px;
+    width: 380px;
+    padding: 16px 20px;
+    background-color: rgba(8, 13, 24, 0.92);
+    border-width: 1px;
+    border-color: var(--cis-stroke);
+    border-radius: 8px;
+    opacity: 0;
+    translate: 0 24px;
+    transition: opacity 0.25s, translate 0.35s ease-out-cubic;
+}
+
+.tactic.cis-screen--in {
+    opacity: 1;
+    translate: 0 0;
+}
+
+.tactic--home {
+    left: 56px;
+}
+
+.tactic--away {
+    right: 56px;
+    align-items: flex-end;
+}
+
+.tactic__team {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--cis-text-dim);
+}
+
+.tactic__name {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+.tactic__meter {
+    flex-direction: row;
+    align-items: flex-end;
+    width: 100%;
+    height: 12px;
+    margin-top: 10px;
+}
+
+.tactic__seg {
+    flex-grow: 1;
+    height: 6px;
+    margin-right: 4px;
+    border-radius: 2px;
+    opacity: 0.22;
+    transition: height 0.2s, opacity 0.2s;
+}
+
+.tactic__seg--on {
+    height: 12px;
+    opacity: 1;
+}
+
+/* ---------- HUD: live stats ticker ---------- */
+
+.ticker {
+    position: absolute;
+    left: 50%;
+    bottom: 44px;
+    width: 1180px;
+    height: 112px;
+    translate: -50% 30px;
+    flex-direction: row;
+    background-color: rgba(8, 13, 24, 0.94);
+    border-width: 1px;
+    border-color: var(--cis-stroke);
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, translate 0.4s ease-out-cubic;
+}
+
+.ticker.cis-screen--in {
+    opacity: 1;
+    translate: -50% 0;
+}
+
+.ticker__side {
+    flex-grow: 1;
+    flex-basis: 0;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 26px;
+}
+
+.ticker__crest {
+    width: 64px;
+    height: 64px;
+}
+
+.ticker__player {
+    margin-left: 16px;
+}
+
+.ticker__player--away {
+    margin-left: 0;
+    margin-right: 16px;
+    align-items: flex-end;
+}
+
+.ticker__player-name {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 24px;
+    white-space: nowrap;
+}
+
+.ticker__player-meta {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--cis-text-dim);
+}
+
+.ticker__value {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 44px;
+}
+
+.ticker__center {
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-color: var(--cis-stroke);
+}
+
+.ticker__eyebrow {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--cis-accent);
+}
+
+.ticker__title {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 28px;
+    letter-spacing: 1px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+.ticker__timer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    transition: width 5.5s linear;
+}
+
+.ticker__timer--reset {
+    transition-duration: 0s;
+}
+
+/* ---------- goal flash ---------- */
+
+.goal {
+    align-items: center;
+    justify-content: center;
+}
+
+.goal.cis-screen {
+    translate: 0 0;
+}
+
+.goal__band {
+    width: 100%;
+    height: 230px;
+    align-items: center;
+    justify-content: center;
+    scale: 0 1;
+    transform-origin: left;
+    transition: scale 0.45s ease-out-cubic;
+}
+
+.goal.cis-screen--in .goal__band {
+    scale: 1 1;
+}
+
+.goal__word {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 176px;
+    letter-spacing: 34px;
+    color: #03150D;
+    -unity-text-align: middle-center;
+    opacity: 0;
+    scale: 1.5 1.5;
+    transition: opacity 0.25s ease-out 0.2s, scale 0.5s ease-out-back 0.2s, letter-spacing 0.7s ease-out-cubic 0.2s;
+}
+
+.goal.cis-screen--in .goal__word {
+    opacity: 1;
+    scale: 1 1;
+    letter-spacing: 18px;
+}
+
+.goal__info {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 28px;
+    padding: 14px 18px 14px 22px;
+    background-color: rgba(8, 13, 24, 0.94);
+    border-width: 1px;
+    border-color: var(--cis-stroke);
+    border-radius: 10px;
+    opacity: 0;
+    translate: 0 26px;
+    transition: opacity 0.3s ease-out 0.45s, translate 0.45s ease-out-cubic 0.45s;
+}
+
+.goal.cis-screen--in .goal__info {
+    opacity: 1;
+    translate: 0 0;
+}
+
+.goal__crest {
+    width: 64px;
+    height: 64px;
+}
+
+.goal__scorer {
+    margin: 0 28px 0 16px;
+}
+
+.goal__scorer-name {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 34px;
+}
+
+.goal__scorer-meta {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--cis-text-dim);
+}
+
+.goal__score {
+    padding: 6px 18px;
+    border-radius: 6px;
+    background-color: #F3F6FB;
+}
+
+.goal__score-text {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 30px;
+    letter-spacing: 1px;
+    color: #0A0E16;
+}
+
+/* ---------- info board (kick off / score / full time) ---------- */
+
+.board {
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 84px;
+}
+
+.board__card {
+    width: 1060px;
+    padding: 26px 36px 30px 36px;
+    align-items: center;
+    background-color: rgba(8, 13, 24, 0.95);
+    border-width: 1px;
+    border-color: var(--cis-stroke);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.board__accent {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 5px;
+}
+
+.board__eyebrow {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: var(--cis-text-dim);
+}
+
+.board__title {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 54px;
+    letter-spacing: 3px;
+}
+
+.board__teams {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.board__team {
+    flex-grow: 1;
+    flex-basis: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.board__team--away {
+    justify-content: flex-start;
+}
+
+.board__crest {
+    width: 76px;
+    height: 76px;
+}
+
+.board__team-name {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 32px;
+    margin: 0 18px;
+}
+
+.board__score {
+    flex-direction: row;
+    align-items: center;
+    padding: 2px 22px;
+    border-radius: 8px;
+    background-color: #F3F6FB;
+}
+
+.board__goals {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 48px;
+    width: 42px;
+    color: #0A0E16;
+    -unity-text-align: middle-center;
+}
+
+.board__dash {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 36px;
+    color: #56627A;
+    margin: 0 8px;
+}
+
+.board__scorers {
+    width: 100%;
+    flex-direction: row;
+    margin-top: 12px;
+}
+
+.board__scorer-list {
+    flex-grow: 1;
+    flex-basis: 0;
+    align-items: flex-end;
+    padding-right: 120px;
+}
+
+.board__scorer-list--away {
+    align-items: flex-start;
+    padding-right: 0;
+    padding-left: 120px;
+}
+
+.scorer {
+    flex-direction: row;
+    align-items: center;
+    height: 26px;
+}
+
+.scorer__icon {
+    width: 14px;
+    height: 14px;
+    margin: 0 8px;
+    --icon-color: #8E9AB0;
+}
+
+.scorer__name {
+    font-size: 16px;
+}
+
+.scorer__minute {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 14px;
+    color: var(--cis-accent);
+    margin-left: 6px;
+}
+
+/* ---------- pause ---------- */
+
+.pause__backdrop {
+    background-color: rgba(3, 5, 10, 0.6);
+}
+
+.pause__left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 700px;
+    padding: 64px 72px;
+}
+
+.pause__left-bg {
+    background-color: rgba(5, 8, 15, 0.5);
+}
+
+.pause__title {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 92px;
+    letter-spacing: 4px;
+    margin-top: 26px;
+}
+
+.pause__score {
+    flex-direction: row;
+    align-items: center;
+}
+
+.pause__crest {
+    width: 44px;
+    height: 44px;
+}
+
+.pause__team {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin: 0 12px;
+}
+
+.pause__score-text {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 34px;
+    padding: 0 14px;
+    border-radius: 6px;
+    background-color: #F3F6FB;
+    color: #0A0E16;
+}
+
+.pause__time {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--cis-accent);
+    margin-top: 10px;
+}
+
+.pause__menu {
+    width: 540px;
+    margin-top: 36px;
+}
+
+.pause__right {
+    position: absolute;
+    right: 72px;
+    top: 96px;
+    bottom: 96px;
+    width: 720px;
+    padding: 34px 40px;
+}
+
+.pause__live {
+    color: var(--cis-danger);
+}
+
+.pause__stats-head {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.pause__stats-team {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 22px;
+    letter-spacing: 2px;
+}
+
+.pause__stats-team--away {
+    -unity-text-align: middle-right;
+}
+
+/* ---------- full time ---------- */
+
+.fulltime {
+    background-color: var(--cis-bg);
+}
+
+.fulltime__content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    padding: 52px 72px;
+}
+
+.fulltime__eyebrow {
+    color: var(--cis-accent);
+}
+
+.fulltime__title {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 72px;
+    letter-spacing: 4px;
+}
+
+.fulltime__result {
+    width: 1400px;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 12px;
+}
+
+.fulltime__team {
+    flex-grow: 1;
+    flex-basis: 0;
+    align-items: center;
+}
+
+.fulltime__crest {
+    width: 132px;
+    height: 132px;
+}
+
+.fulltime__team-name {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 40px;
+    margin-top: 8px;
+}
+
+.fulltime__scorers {
+    margin-top: 4px;
+    align-items: center;
+}
+
+.fulltime__score {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 26px;
+    padding: 0 30px;
+    border-radius: 10px;
+    background-color: #F3F6FB;
+}
+
+.fulltime__goals {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 92px;
+    width: 72px;
+    color: #0A0E16;
+    -unity-text-align: middle-center;
+}
+
+.fulltime__dash {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 64px;
+    color: #56627A;
+    margin: 0 12px;
+}
+
+.fulltime__stats {
+    width: 1400px;
+    flex-direction: row;
+    margin-top: 22px;
+    padding: 26px 36px 12px 36px;
+}
+
+.fulltime__stats-col {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.fulltime__stats-divider {
+    width: 1px;
+    margin: 0 36px 14px 36px;
+    background-color: var(--cis-stroke);
+}
+
+.fulltime__actions {
+    margin-top: 22px;
+}
+
+/* ---------- controlled player indicator ---------- */
+
+.cis-pointer {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    translate: -50% -50%;
+}

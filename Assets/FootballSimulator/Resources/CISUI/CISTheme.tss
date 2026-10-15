@@ -1,0 +1,11 @@
+/* CIS Soccer runtime theme: Unity's default runtime theme + the CIS design system.
+   Loaded at runtime by CISUI.PanelSettings (Resources/CISUI/CISTheme).
+   To preview layouts in UI Builder, pick this theme in the Canvas theme dropdown. */
+@import url("unity-theme://default");
+@import url("Styles/CISCore.uss");
+@import url("Styles/CISOverlay.uss");
+@import url("Styles/CISMenu.uss");
+@import url("Styles/CISMatch.uss");
+@import url("Styles/CISTouch.uss");
+
+VisualElement {}

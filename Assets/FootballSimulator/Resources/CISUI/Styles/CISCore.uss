@@ -1,0 +1,718 @@
+/* =====================================================================
+   CIS SOCCER — core design system
+   Tokens, typography, shared controls. Every UI document root carries
+   the .cis-root class so the variables below cascade to all screens.
+   ===================================================================== */
+
+.cis-root {
+    --cis-bg: #05080F;
+    --cis-bg-2: #0A1120;
+    --cis-surface: rgba(12, 19, 33, 0.94);
+    --cis-surface-solid: #0C1321;
+    --cis-surface-2: rgba(255, 255, 255, 0.045);
+    --cis-surface-3: rgba(255, 255, 255, 0.09);
+    --cis-stroke: rgba(255, 255, 255, 0.09);
+    --cis-stroke-strong: rgba(255, 255, 255, 0.22);
+    --cis-text: #F3F6FB;
+    --cis-text-dim: #8E9AB0;
+    --cis-text-faint: #56627A;
+    --cis-accent: #00E58F;
+    --cis-accent-2: #00B4FF;
+    --cis-accent-ink: #03150D;
+    --cis-accent-soft: rgba(0, 229, 143, 0.14);
+    --cis-gold: #FFC93C;
+    --cis-silver: #C9D3E0;
+    --cis-bronze: #D9925B;
+    --cis-danger: #FF4B5C;
+
+    flex-grow: 1;
+    color: var(--cis-text);
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Regular.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Regular.ttf");
+    font-size: 18px;
+}
+
+/* ---------- typography ----------
+   Low-specificity reset: every text element gets the body font and colour
+   directly (not by inheritance), and single-class component rules declared
+   later in the cascade override it. Font classes go on the text element itself. */
+
+.unity-text-element {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Regular.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Regular.ttf");
+    color: var(--cis-text);
+}
+
+.unity-label {
+    padding: 0;
+    margin: 0;
+}
+
+.cis-display {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-style: normal;
+    letter-spacing: 1px;
+}
+
+.cis-strong {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+}
+
+.cis-dim { color: var(--cis-text-dim); }
+.cis-faint { color: var(--cis-text-faint); }
+.cis-accent-text { color: var(--cis-accent); }
+
+.cis-eyebrow {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: var(--cis-text-dim);
+}
+
+.cis-title {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 54px;
+    letter-spacing: 2px;
+}
+
+/* ---------- layout utilities ---------- */
+
+.cis-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.cis-row { flex-direction: row; align-items: center; }
+.cis-col { flex-direction: column; }
+.cis-grow { flex-grow: 1; }
+.cis-center { align-items: center; justify-content: center; }
+.cis-hidden { display: none; }
+
+/* ---------- screens ---------- */
+
+.cis-screen {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    translate: 0 14px;
+    transition: opacity 0.28s ease-out-cubic, translate 0.28s ease-out-cubic;
+}
+
+.cis-screen--in {
+    opacity: 1;
+    translate: 0 0;
+}
+
+/* ---------- panels & cards ---------- */
+
+.cis-panel {
+    background-color: var(--cis-surface);
+    border-width: 1px;
+    border-color: var(--cis-stroke);
+    border-radius: 8px;
+}
+
+.cis-modal-backdrop {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(2, 4, 9, 0.78);
+    align-items: center;
+    justify-content: center;
+}
+
+.cis-modal {
+    background-color: var(--cis-surface-solid);
+    border-width: 1px;
+    border-color: var(--cis-stroke-strong);
+    border-radius: 10px;
+    padding: 36px 40px;
+    min-width: 560px;
+    max-width: 1320px;
+}
+
+.cis-modal__accent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 4px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.cis-modal__title {
+    font-size: 40px;
+    margin-bottom: 6px;
+}
+
+.cis-modal__body {
+    font-size: 19px;
+    color: var(--cis-text-dim);
+    white-space: normal;
+    margin-bottom: 28px;
+}
+
+.cis-modal__actions {
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.cis-modal__actions > .cis-btn {
+    margin-left: 14px;
+}
+
+.cis-divider {
+    height: 1px;
+    background-color: var(--cis-stroke);
+    margin: 18px 0;
+}
+
+/* ---------- buttons ---------- */
+
+.cis-btn {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    padding: 0 30px;
+    margin: 0;
+    background-color: var(--cis-surface-2);
+    border-width: 1px;
+    border-color: var(--cis-stroke);
+    border-radius: 4px;
+    color: var(--cis-text);
+    transition: background-color 0.14s, border-color 0.14s, scale 0.14s ease-out-back;
+    -unity-text-align: middle-center;
+}
+
+.cis-btn:hover {
+    background-color: var(--cis-surface-3);
+}
+
+.cis-btn:focus {
+    background-color: var(--cis-text);
+    border-color: var(--cis-text);
+    scale: 1.03 1.03;
+}
+
+.cis-btn:active,
+.cis-btn:hover:active {
+    scale: 0.98 0.98;
+}
+
+.cis-btn:disabled {
+    opacity: 0.35;
+}
+
+.cis-btn__label {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--cis-text);
+}
+
+.cis-btn:focus .cis-btn__label {
+    color: var(--cis-bg);
+}
+
+.cis-btn .cis-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 12px;
+    --icon-color: #F3F6FB;
+}
+
+.cis-btn:focus .cis-icon {
+    --icon-color: #05080F;
+}
+
+.cis-btn--primary {
+    background-color: var(--cis-accent);
+    border-color: var(--cis-accent);
+}
+
+.cis-btn--primary:hover {
+    background-color: var(--cis-accent);
+}
+
+.cis-btn--primary .cis-btn__label {
+    color: var(--cis-accent-ink);
+}
+
+.cis-btn--primary .cis-icon {
+    --icon-color: #03150D;
+}
+
+.cis-btn--primary:focus {
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+}
+
+.cis-btn--danger:focus {
+    background-color: var(--cis-danger);
+    border-color: var(--cis-danger);
+}
+
+.cis-btn--danger:focus .cis-btn__label {
+    color: #FFFFFF;
+}
+
+.cis-btn--danger:focus .cis-icon {
+    --icon-color: #FFFFFF;
+}
+
+.cis-btn--large {
+    height: 78px;
+    padding: 0 44px;
+}
+
+.cis-btn--large .cis-btn__label {
+    font-size: 30px;
+    letter-spacing: 3px;
+}
+
+.cis-btn--ghost {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.cis-btn--menu {
+    justify-content: flex-start;
+    height: 62px;
+    padding: 0 26px;
+    margin-bottom: 8px;
+    border-left-width: 4px;
+    border-left-color: rgba(0, 0, 0, 0);
+}
+
+.cis-btn--menu:focus {
+    background-color: var(--cis-surface-3);
+    border-color: var(--cis-stroke);
+    border-left-color: var(--cis-accent);
+    scale: 1 1;
+    translate: 6px 0;
+}
+
+.cis-btn--menu:focus .cis-btn__label {
+    color: var(--cis-text);
+}
+
+.cis-btn--menu:focus .cis-icon {
+    --icon-color: #00E58F;
+}
+
+.cis-btn--menu.cis-btn--danger:focus {
+    border-left-color: var(--cis-danger);
+}
+
+.cis-btn--menu.cis-btn--danger:focus .cis-icon {
+    --icon-color: #FF4B5C;
+}
+
+.cis-actions {
+    flex-direction: row;
+    align-items: center;
+}
+
+.cis-actions > .cis-btn {
+    margin-left: 14px;
+}
+
+/* ---------- icons ---------- */
+
+.cis-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    --icon-color: #F3F6FB;
+}
+
+/* ---------- spinner (left/right option selector) ---------- */
+
+.cis-spinner {
+    flex-direction: row;
+    align-items: center;
+    height: 74px;
+    padding: 0 22px 0 26px;
+    margin-bottom: 8px;
+    background-color: var(--cis-surface-2);
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0);
+    border-left-width: 4px;
+    border-radius: 4px;
+    transition: background-color 0.14s, border-color 0.14s, translate 0.14s;
+}
+
+.cis-spinner:focus {
+    background-color: var(--cis-surface-3);
+    border-color: var(--cis-stroke);
+    border-left-color: var(--cis-accent);
+    translate: 6px 0;
+}
+
+.cis-spinner__label {
+    flex-grow: 1;
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 15px;
+    letter-spacing: 3px;
+    color: var(--cis-text-dim);
+}
+
+.cis-spinner:focus .cis-spinner__label {
+    color: var(--cis-text);
+}
+
+.cis-spinner__control {
+    flex-direction: row;
+    align-items: center;
+    width: 330px;
+}
+
+.cis-spinner__arrow {
+    width: 34px;
+    height: 34px;
+    padding: 6px;
+    border-radius: 17px;
+    --icon-color: #56627A;
+}
+
+.cis-spinner__arrow:hover {
+    background-color: var(--cis-surface-3);
+}
+
+.cis-spinner:focus .cis-spinner__arrow {
+    --icon-color: #00E58F;
+}
+
+.cis-spinner__value-wrap {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.cis-spinner__value {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 26px;
+    letter-spacing: 1px;
+    -unity-text-align: middle-center;
+    color: var(--cis-text);
+}
+
+.cis-spinner__pips {
+    flex-direction: row;
+    margin-top: 6px;
+}
+
+.cis-spinner__pip {
+    width: 20px;
+    height: 4px;
+    margin: 0 2px;
+    border-radius: 2px;
+    background-color: var(--cis-stroke-strong);
+}
+
+.cis-spinner__pip--on {
+    background-color: var(--cis-accent);
+}
+
+/* ---------- rating badge ---------- */
+
+.cis-rating {
+    width: 64px;
+    height: 72px;
+    align-items: center;
+    justify-content: center;
+}
+
+.cis-rating__value {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 30px;
+    color: #10131A;
+    -unity-text-align: middle-center;
+    margin-top: -4px;
+}
+
+.cis-rating__caption {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(16, 19, 26, 0.75);
+    margin-top: -6px;
+}
+
+.cis-rating--small {
+    width: 42px;
+    height: 48px;
+}
+
+.cis-rating--small .cis-rating__value {
+    font-size: 20px;
+    margin-top: -2px;
+}
+
+.cis-rating--small .cis-rating__caption {
+    display: none;
+}
+
+/* ---------- chips & keycaps ---------- */
+
+.cis-chip {
+    flex-direction: row;
+    align-items: center;
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 17px;
+    background-color: var(--cis-surface-2);
+    border-width: 1px;
+    border-color: var(--cis-stroke);
+    margin: 4px;
+}
+
+.cis-chip__label {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--cis-text-dim);
+    margin-right: 8px;
+}
+
+.cis-chip__value {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 17px;
+    letter-spacing: 1px;
+}
+
+.cis-hints {
+    flex-direction: row;
+    align-items: center;
+}
+
+.cis-hint {
+    flex-direction: row;
+    align-items: center;
+    margin-left: 26px;
+}
+
+.cis-keycap {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px;
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-width: 1px;
+    border-color: var(--cis-stroke-strong);
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.cis-keycap__text {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 14px;
+    -unity-text-align: middle-center;
+    color: #FFFFFF;
+}
+
+.cis-keycap--a { background-color: #1FA463; border-color: #1FA463; }
+.cis-keycap--b { background-color: #D93F4C; border-color: #D93F4C; }
+.cis-keycap--x { background-color: #2F7BEA; border-color: #2F7BEA; }
+.cis-keycap--y { background-color: #E0A800; border-color: #E0A800; }
+
+.cis-hint__label {
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--cis-text-dim);
+}
+
+/* ---------- brand ---------- */
+
+.cis-brand {
+    flex-direction: row;
+    align-items: center;
+}
+
+.cis-brand__mark {
+    background-color: var(--cis-accent);
+    padding: 0 12px;
+    height: 40px;
+    border-radius: 3px;
+    justify-content: center;
+}
+
+.cis-brand__mark-text {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--cis-accent-ink);
+    -unity-text-align: middle-center;
+}
+
+.cis-brand__word {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 26px;
+    letter-spacing: 7px;
+    margin-left: 12px;
+}
+
+.cis-brand--large .cis-brand__mark {
+    height: 92px;
+    padding: 0 26px;
+    border-radius: 6px;
+}
+
+.cis-brand--large .cis-brand__mark-text {
+    font-size: 64px;
+    letter-spacing: 4px;
+}
+
+.cis-brand--large .cis-brand__word {
+    font-size: 64px;
+    letter-spacing: 16px;
+    margin-left: 24px;
+}
+
+/* ---------- stat comparison rows ---------- */
+
+.cis-stat {
+    margin-bottom: 16px;
+}
+
+.cis-stat__head {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 7px;
+}
+
+.cis-stat__value {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 26px;
+    width: 140px;
+    color: var(--cis-text-dim);
+}
+
+.cis-stat__value--away {
+    -unity-text-align: middle-right;
+}
+
+.cis-stat__value--lead {
+    color: var(--cis-text);
+}
+
+.cis-stat__label {
+    flex-grow: 1;
+    -unity-font: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Roboto-Bold.ttf");
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--cis-text-dim);
+    -unity-text-align: middle-center;
+}
+
+.cis-stat__bars {
+    flex-direction: row;
+    height: 6px;
+}
+
+.cis-stat__track {
+    flex-grow: 1;
+    flex-basis: 0;
+    flex-direction: row;
+    height: 6px;
+    border-radius: 3px;
+    background-color: var(--cis-surface-3);
+    overflow: hidden;
+}
+
+.cis-stat__track--home {
+    justify-content: flex-end;
+    margin-right: 4px;
+}
+
+.cis-stat__track--away {
+    margin-left: 4px;
+}
+
+.cis-stat__fill {
+    height: 6px;
+    border-radius: 3px;
+    background-color: var(--cis-accent);
+    transition: width 0.6s ease-out-cubic;
+}
+
+/* ---------- loading ring ---------- */
+
+.cis-loader {
+    width: 56px;
+    height: 56px;
+    --ring-color: #00E58F;
+}
+
+.cis-loader--small {
+    width: 26px;
+    height: 26px;
+}
+
+/* ---------- crest / kit ---------- */
+
+.cis-crest {
+    width: 96px;
+    height: 96px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.cis-crest__initials {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-text-align: middle-center;
+    color: #FFFFFF;
+}
+
+.cis-kit {
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* ---------- team colour stripe ---------- */
+
+.cis-colors {
+    flex-direction: column;
+    width: 8px;
+}
+
+.cis-colors__primary {
+    flex-grow: 2;
+}
+
+.cis-colors__secondary {
+    flex-grow: 1;
+}

@@ -1,0 +1,208 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:cis="FStudio.UIToolkit" editor-extension-mode="False">
+    <ui:Template name="TeamCard" src="TeamCard.uxml" />
+
+    <ui:VisualElement name="menu-root" class="cis-root cis-fill menu" picking-mode="Ignore">
+        <ui:VisualElement name="menu-shell" class="cis-fill menu__shell">
+            <ui:VisualElement class="cis-fill cis-grad-menu" picking-mode="Ignore" />
+            <cis:CISPitch class="menu__art" picking-mode="Ignore" />
+            <ui:VisualElement class="menu__art-fade cis-fill cis-grad-fade-left" picking-mode="Ignore" />
+
+            <!-- ============ TOP BAR ============ -->
+            <ui:VisualElement class="menu__topbar" picking-mode="Ignore">
+                <ui:VisualElement class="cis-brand" picking-mode="Ignore">
+                    <ui:VisualElement class="cis-brand__mark" picking-mode="Ignore">
+                        <ui:Label text="CIS" class="cis-brand__mark-text" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:Label text="SOCCER" class="cis-brand__word" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement class="menu__crumb-sep" picking-mode="Ignore" />
+                <ui:Label name="page-title" text="MAIN MENU" class="menu__page-title" picking-mode="Ignore" />
+                <ui:VisualElement class="cis-grow" picking-mode="Ignore" />
+                <ui:VisualElement class="menu__badge" picking-mode="Ignore">
+                    <ui:VisualElement class="menu__badge-dot" picking-mode="Ignore" />
+                    <ui:Label text="DEMO BUILD" class="menu__badge-text" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ============ PAGES ============ -->
+            <ui:VisualElement name="pages" class="menu__pages" picking-mode="Ignore">
+
+                <!-- HUB -->
+                <ui:VisualElement name="page-hub" class="page hub">
+                    <ui:VisualElement class="hub__intro" picking-mode="Ignore">
+                        <ui:Label text="WELCOME TO" class="cis-eyebrow" picking-mode="Ignore" />
+                        <ui:Label text="CIS SOCCER" class="hub__headline" picking-mode="Ignore" />
+                        <ui:VisualElement class="hub__underline cis-grad-accent" picking-mode="Ignore" />
+                        <ui:Label text="Pick two clubs, set the conditions and take the pitch." class="hub__sub" picking-mode="Ignore" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="hub__tiles" picking-mode="Ignore">
+                        <ui:VisualElement name="tile-kickoff" focusable="true" class="tile tile--feature">
+                            <ui:VisualElement class="tile__feature-bg cis-fill cis-grad-fade-up" picking-mode="Ignore" />
+                            <ui:VisualElement class="tile__feature-art" picking-mode="Ignore">
+                                <cis:CISCrest name="hub-home-crest" bake-size="512" class="tile__feature-crest" picking-mode="Ignore" />
+                                <ui:Label text="VS" class="tile__feature-vs" picking-mode="Ignore" />
+                                <cis:CISCrest name="hub-away-crest" bake-size="512" class="tile__feature-crest" picking-mode="Ignore" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="tile__body" picking-mode="Ignore">
+                                <ui:Label text="QUICK MATCH" class="tile__eyebrow" picking-mode="Ignore" />
+                                <ui:Label text="KICK OFF" class="tile__title tile__title--feature" picking-mode="Ignore" />
+                                <ui:Label name="hub-fixture" text="Choose any two clubs and play a full match." class="tile__desc" picking-mode="Ignore" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="tile__go" picking-mode="Ignore">
+                                <cis:CISIcon kind="Play" class="tile__go-icon" picking-mode="Ignore" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="tile__bar cis-grad-accent" picking-mode="Ignore" />
+                        </ui:VisualElement>
+
+                        <ui:VisualElement class="hub__column" picking-mode="Ignore">
+                            <ui:VisualElement name="tile-settings" focusable="true" class="tile tile--small">
+                                <cis:CISIcon kind="Gear" class="tile__icon" picking-mode="Ignore" />
+                                <ui:VisualElement class="tile__body" picking-mode="Ignore">
+                                    <ui:Label text="SETTINGS" class="tile__title" picking-mode="Ignore" />
+                                    <ui:Label text="Graphics, camera and audio" class="tile__desc" picking-mode="Ignore" />
+                                </ui:VisualElement>
+                                <cis:CISIcon kind="ChevronRight" class="tile__chevron" picking-mode="Ignore" />
+                                <ui:VisualElement class="tile__bar cis-grad-accent" picking-mode="Ignore" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="tile-controls" focusable="true" class="tile tile--small">
+                                <cis:CISIcon kind="Gamepad" class="tile__icon" picking-mode="Ignore" />
+                                <ui:VisualElement class="tile__body" picking-mode="Ignore">
+                                    <ui:Label text="CONTROLS" class="tile__title" picking-mode="Ignore" />
+                                    <ui:Label text="Keyboard and gamepad layout" class="tile__desc" picking-mode="Ignore" />
+                                </ui:VisualElement>
+                                <cis:CISIcon kind="ChevronRight" class="tile__chevron" picking-mode="Ignore" />
+                                <ui:VisualElement class="tile__bar cis-grad-accent" picking-mode="Ignore" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="tile-quit" focusable="true" class="tile tile--small tile--danger">
+                                <cis:CISIcon kind="Exit" class="tile__icon" picking-mode="Ignore" />
+                                <ui:VisualElement class="tile__body" picking-mode="Ignore">
+                                    <ui:Label text="QUIT" class="tile__title" picking-mode="Ignore" />
+                                    <ui:Label text="Close CIS Soccer" class="tile__desc" picking-mode="Ignore" />
+                                </ui:VisualElement>
+                                <cis:CISIcon kind="ChevronRight" class="tile__chevron" picking-mode="Ignore" />
+                                <ui:VisualElement class="tile__bar" picking-mode="Ignore" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- KICK OFF -->
+                <ui:VisualElement name="page-kickoff" class="page kickoff">
+                    <ui:VisualElement class="kickoff__row" picking-mode="Ignore">
+                        <ui:Instance template="TeamCard" name="home-slot" class="team-slot" picking-mode="Ignore" />
+
+                        <ui:VisualElement class="kickoff__center" picking-mode="Ignore">
+                            <ui:VisualElement class="kickoff__vs" picking-mode="Ignore">
+                                <ui:VisualElement class="kickoff__vs-line" picking-mode="Ignore" />
+                                <ui:Label text="VS" class="kickoff__vs-text" picking-mode="Ignore" />
+                                <ui:VisualElement class="kickoff__vs-line" picking-mode="Ignore" />
+                            </ui:VisualElement>
+                            <ui:Label name="kickoff-venue" text="CIS ARENA" class="kickoff__venue" picking-mode="Ignore" />
+
+                            <ui:VisualElement class="kickoff__settings" picking-mode="Ignore">
+                                <cis:CISSpinner name="spin-home" label="HOME TEAM" />
+                                <cis:CISSpinner name="spin-away" label="AWAY TEAM" />
+                                <cis:CISSpinner name="spin-side" label="YOU CONTROL" />
+                                <cis:CISSpinner name="spin-difficulty" label="DIFFICULTY" show-pips="true" />
+                                <cis:CISSpinner name="spin-time" label="TIME OF DAY" />
+                            </ui:VisualElement>
+
+                            <cis:CISButton name="kickoff-play" label="PLAY MATCH" icon="Play" class="cis-btn--primary cis-btn--large kickoff__play" />
+                        </ui:VisualElement>
+
+                        <ui:Instance template="TeamCard" name="away-slot" class="team-slot" picking-mode="Ignore" />
+                    </ui:VisualElement>
+
+                    <!-- team picker dialog -->
+                    <ui:VisualElement name="team-picker" class="cis-modal-backdrop">
+                        <ui:VisualElement class="cis-modal team-picker">
+                            <ui:VisualElement class="cis-modal__accent cis-grad-accent" picking-mode="Ignore" />
+                            <ui:Label name="team-picker-eyebrow" text="HOME TEAM" class="cis-eyebrow" picking-mode="Ignore" />
+                            <ui:Label text="SELECT A CLUB" class="cis-modal__title cis-display" picking-mode="Ignore" />
+                            <ui:VisualElement name="team-picker-grid" class="team-picker__grid" picking-mode="Ignore" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- SETTINGS -->
+                <ui:VisualElement name="page-settings" class="page settings">
+                    <ui:VisualElement class="settings__panel cis-panel">
+                        <ui:Label text="PREFERENCES" class="cis-eyebrow" picking-mode="Ignore" />
+                        <ui:Label text="GAME SETTINGS" class="section-title" picking-mode="Ignore" />
+                        <cis:CISSpinner name="spin-quality" label="GRAPHICS QUALITY" show-pips="true" />
+                        <cis:CISSpinner name="spin-camera" label="MATCH CAMERA" />
+                        <cis:CISSpinner name="spin-volume" label="MASTER VOLUME" show-pips="true" />
+                        <ui:Label text="Camera and quality can also be changed from the pause menu during a match." class="settings__note" picking-mode="Ignore" />
+                        <ui:VisualElement class="cis-actions settings__actions" picking-mode="Ignore">
+                            <cis:CISButton name="settings-back" label="BACK" icon="Back" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- CONTROLS -->
+                <ui:VisualElement name="page-controls" class="page controls">
+                    <ui:VisualElement class="controls__columns" picking-mode="Ignore">
+                        <ui:VisualElement class="controls__panel cis-panel" picking-mode="Ignore">
+                            <ui:VisualElement class="controls__head" picking-mode="Ignore">
+                                <cis:CISIcon kind="Gamepad" class="controls__head-icon" picking-mode="Ignore" />
+                                <ui:Label text="GAMEPAD" class="section-title" picking-mode="Ignore" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="controls-gamepad" class="controls__list" picking-mode="Ignore" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="controls__panel cis-panel" picking-mode="Ignore">
+                            <ui:VisualElement class="controls__head" picking-mode="Ignore">
+                                <cis:CISIcon kind="Stats" class="controls__head-icon" picking-mode="Ignore" />
+                                <ui:Label text="KEYBOARD" class="section-title" picking-mode="Ignore" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="controls-keyboard" class="controls__list" picking-mode="Ignore" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="cis-actions controls__actions" picking-mode="Ignore">
+                        <cis:CISButton name="controls-back" label="BACK" icon="Back" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- QUIT CONFIRM -->
+                <ui:VisualElement name="quit-dialog" class="cis-modal-backdrop">
+                    <ui:VisualElement class="cis-modal">
+                        <ui:VisualElement class="cis-modal__accent quit__accent" picking-mode="Ignore" />
+                        <ui:Label text="QUIT GAME" class="cis-modal__title cis-display" picking-mode="Ignore" />
+                        <ui:Label text="Are you sure you want to close CIS Soccer?" class="cis-modal__body" picking-mode="Ignore" />
+                        <ui:VisualElement class="cis-modal__actions" picking-mode="Ignore">
+                            <cis:CISButton name="quit-no" label="STAY" icon="Back" />
+                            <cis:CISButton name="quit-yes" label="QUIT" icon="Exit" class="cis-btn--danger" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ============ FOOTER ============ -->
+            <ui:VisualElement class="menu__footer" picking-mode="Ignore">
+                <ui:Label text="CIS SOCCER  ·  DEMO PROJECT" class="menu__footer-text" picking-mode="Ignore" />
+                <ui:VisualElement class="cis-grow" picking-mode="Ignore" />
+                <ui:VisualElement class="cis-hints" picking-mode="Ignore">
+                    <ui:VisualElement class="cis-hint" picking-mode="Ignore">
+                        <ui:VisualElement class="cis-keycap cis-keycap--arrows" picking-mode="Ignore">
+                            <cis:CISIcon kind="ChevronLeft" class="cis-keycap__icon" picking-mode="Ignore" />
+                            <cis:CISIcon kind="ChevronRight" class="cis-keycap__icon" picking-mode="Ignore" />
+                        </ui:VisualElement>
+                        <ui:Label text="CHANGE" class="cis-hint__label" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="cis-hint" picking-mode="Ignore">
+                        <ui:VisualElement class="cis-keycap cis-keycap--a" picking-mode="Ignore">
+                            <ui:Label text="A" class="cis-keycap__text" picking-mode="Ignore" />
+                        </ui:VisualElement>
+                        <ui:Label text="SELECT" class="cis-hint__label" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="cis-hint" picking-mode="Ignore">
+                        <ui:VisualElement class="cis-keycap cis-keycap--b" picking-mode="Ignore">
+                            <ui:Label text="B" class="cis-keycap__text" picking-mode="Ignore" />
+                        </ui:VisualElement>
+                        <ui:Label text="BACK" class="cis-hint__label" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,270 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:cis="FStudio.UIToolkit" editor-extension-mode="False">
+    <ui:Template name="TeamSheet" src="TeamSheet.uxml" />
+
+    <ui:VisualElement name="match-root" class="cis-root cis-fill" picking-mode="Ignore">
+
+        <!-- =============================== PRE-MATCH =============================== -->
+        <ui:VisualElement name="prematch" class="prematch">
+            <ui:VisualElement class="cis-fill cis-grad-menu" picking-mode="Ignore" />
+
+            <ui:VisualElement class="menu__topbar" picking-mode="Ignore">
+                <ui:VisualElement class="cis-brand" picking-mode="Ignore">
+                    <ui:VisualElement class="cis-brand__mark" picking-mode="Ignore">
+                        <ui:Label text="CIS" class="cis-brand__mark-text" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:Label text="SOCCER" class="cis-brand__word" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement class="menu__crumb-sep" picking-mode="Ignore" />
+                <ui:Label text="MATCH PREVIEW" class="menu__page-title" picking-mode="Ignore" />
+                <ui:VisualElement class="cis-grow" picking-mode="Ignore" />
+                <ui:VisualElement class="menu__badge" picking-mode="Ignore">
+                    <ui:VisualElement class="menu__badge-dot" picking-mode="Ignore" />
+                    <ui:Label name="prematch-venue" text="CIS ARENA" class="menu__badge-text" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="prematch__row" picking-mode="Ignore">
+                <ui:Instance template="TeamSheet" name="home-sheet" class="sheet-slot" picking-mode="Ignore" />
+
+                <ui:VisualElement class="prematch__center" picking-mode="Ignore">
+                    <ui:Label text="VS" class="prematch__vs" picking-mode="Ignore" />
+                    <ui:VisualElement class="prematch__info" picking-mode="Ignore">
+                        <ui:Label text="DIFFICULTY" class="prematch__info-label" picking-mode="Ignore" />
+                        <ui:Label name="prematch-difficulty" text="-" class="prematch__info-value" picking-mode="Ignore" />
+                        <ui:Label text="TIME OF DAY" class="prematch__info-label" picking-mode="Ignore" />
+                        <ui:Label name="prematch-time" text="-" class="prematch__info-value" picking-mode="Ignore" />
+                        <ui:Label text="YOU CONTROL" class="prematch__info-label" picking-mode="Ignore" />
+                        <ui:Label name="prematch-side" text="-" class="prematch__info-value" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <cis:CISButton name="prematch-start" label="KICK OFF" icon="Play" class="cis-btn--primary cis-btn--large prematch__start" />
+                    <cis:CISButton name="prematch-back" label="BACK" icon="Back" class="prematch__back" />
+                </ui:VisualElement>
+
+                <ui:Instance template="TeamSheet" name="away-sheet" class="sheet-slot" picking-mode="Ignore" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="menu__footer" picking-mode="Ignore">
+                <ui:Label text="CHECK THE LINE-UPS, PICK YOUR KITS AND KICK OFF" class="menu__footer-text" picking-mode="Ignore" />
+                <ui:VisualElement class="cis-grow" picking-mode="Ignore" />
+                <ui:VisualElement class="cis-hints" picking-mode="Ignore">
+                    <ui:VisualElement class="cis-hint" picking-mode="Ignore">
+                        <ui:VisualElement class="cis-keycap cis-keycap--a" picking-mode="Ignore">
+                            <ui:Label text="A" class="cis-keycap__text" picking-mode="Ignore" />
+                        </ui:VisualElement>
+                        <ui:Label text="SELECT" class="cis-hint__label" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="cis-hint" picking-mode="Ignore">
+                        <ui:VisualElement class="cis-keycap cis-keycap--b" picking-mode="Ignore">
+                            <ui:Label text="B" class="cis-keycap__text" picking-mode="Ignore" />
+                        </ui:VisualElement>
+                        <ui:Label text="BACK" class="cis-hint__label" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- =============================== HUD =============================== -->
+        <ui:VisualElement name="scoreboard" class="scoreboard" picking-mode="Ignore">
+            <ui:VisualElement class="scoreboard__brand" picking-mode="Ignore">
+                <ui:Label text="CIS" class="scoreboard__brand-text" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement class="scoreboard__team" picking-mode="Ignore">
+                <ui:VisualElement class="cis-colors" picking-mode="Ignore">
+                    <ui:VisualElement name="sb-home-c1" class="cis-colors__primary" picking-mode="Ignore" />
+                    <ui:VisualElement name="sb-home-c2" class="cis-colors__secondary" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:Label name="sb-home-name" text="HOM" class="scoreboard__name" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement class="scoreboard__score" picking-mode="Ignore">
+                <ui:Label name="sb-home-score" text="0" class="scoreboard__goals" picking-mode="Ignore" />
+                <ui:Label text="-" class="scoreboard__dash" picking-mode="Ignore" />
+                <ui:Label name="sb-away-score" text="0" class="scoreboard__goals" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement class="scoreboard__team" picking-mode="Ignore">
+                <ui:Label name="sb-away-name" text="AWY" class="scoreboard__name" picking-mode="Ignore" />
+                <ui:VisualElement class="cis-colors" picking-mode="Ignore">
+                    <ui:VisualElement name="sb-away-c1" class="cis-colors__primary" picking-mode="Ignore" />
+                    <ui:VisualElement name="sb-away-c2" class="cis-colors__secondary" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="scoreboard__clock" picking-mode="Ignore">
+                <ui:Label name="sb-time" text="00:00" class="scoreboard__time" picking-mode="Ignore" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="tactic-home" class="tactic tactic--home" picking-mode="Ignore">
+            <ui:Label name="tactic-home-team" text="HOME TACTIC" class="tactic__team" picking-mode="Ignore" />
+            <ui:Label name="tactic-home-name" text="BALANCED" class="tactic__name" picking-mode="Ignore" />
+            <ui:VisualElement name="tactic-home-meter" class="tactic__meter" picking-mode="Ignore" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="tactic-away" class="tactic tactic--away" picking-mode="Ignore">
+            <ui:Label name="tactic-away-team" text="AWAY TACTIC" class="tactic__team" picking-mode="Ignore" />
+            <ui:Label name="tactic-away-name" text="BALANCED" class="tactic__name" picking-mode="Ignore" />
+            <ui:VisualElement name="tactic-away-meter" class="tactic__meter" picking-mode="Ignore" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="ticker" class="ticker" picking-mode="Ignore">
+            <ui:VisualElement class="ticker__side" picking-mode="Ignore">
+                <cis:CISCrest name="ticker-home-crest" class="ticker__crest" picking-mode="Ignore" />
+                <ui:VisualElement name="ticker-home-player" class="ticker__player" picking-mode="Ignore">
+                    <ui:Label name="ticker-home-player-name" text="PLAYER" class="ticker__player-name" picking-mode="Ignore" />
+                    <ui:Label name="ticker-home-player-meta" text="#9  ST" class="ticker__player-meta" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement class="cis-grow" picking-mode="Ignore" />
+                <ui:Label name="ticker-home-value" text="0" class="ticker__value" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement class="ticker__center" picking-mode="Ignore">
+                <ui:Label text="LIVE STATS" class="ticker__eyebrow" picking-mode="Ignore" />
+                <ui:Label name="ticker-title" text="POSSESSION" class="ticker__title" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement class="ticker__side ticker__side--away" picking-mode="Ignore">
+                <ui:Label name="ticker-away-value" text="0" class="ticker__value" picking-mode="Ignore" />
+                <ui:VisualElement class="cis-grow" picking-mode="Ignore" />
+                <ui:VisualElement name="ticker-away-player" class="ticker__player ticker__player--away" picking-mode="Ignore">
+                    <ui:Label name="ticker-away-player-name" text="PLAYER" class="ticker__player-name" picking-mode="Ignore" />
+                    <ui:Label name="ticker-away-player-meta" text="#9  ST" class="ticker__player-meta" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <cis:CISCrest name="ticker-away-crest" class="ticker__crest" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ticker-timer" class="ticker__timer cis-grad-accent" picking-mode="Ignore" />
+        </ui:VisualElement>
+
+        <!-- goal celebration flash -->
+        <ui:VisualElement name="goal" class="goal" picking-mode="Ignore">
+            <ui:VisualElement class="goal__band cis-grad-accent" picking-mode="Ignore">
+                <ui:Label text="GOAL" class="goal__word" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement class="goal__info" picking-mode="Ignore">
+                <cis:CISCrest name="goal-crest" class="goal__crest" picking-mode="Ignore" />
+                <ui:VisualElement class="goal__scorer" picking-mode="Ignore">
+                    <ui:Label name="goal-scorer" text="PLAYER" class="goal__scorer-name" picking-mode="Ignore" />
+                    <ui:Label name="goal-meta" text="23'" class="goal__scorer-meta" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement class="goal__score" picking-mode="Ignore">
+                    <ui:Label name="goal-score" text="HOM 1 - 0 AWY" class="goal__score-text" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- kick off / score update / full time board -->
+        <ui:VisualElement name="board" class="board" picking-mode="Ignore">
+            <ui:VisualElement class="board__card" picking-mode="Ignore">
+                <ui:VisualElement class="board__accent cis-grad-accent" picking-mode="Ignore" />
+                <ui:Label name="board-eyebrow" text="CIS ARENA" class="board__eyebrow" picking-mode="Ignore" />
+                <ui:Label name="board-title" text="KICK OFF" class="board__title" picking-mode="Ignore" />
+                <ui:VisualElement class="board__teams" picking-mode="Ignore">
+                    <ui:VisualElement class="board__team" picking-mode="Ignore">
+                        <cis:CISCrest name="board-home-crest" class="board__crest" picking-mode="Ignore" />
+                        <ui:Label name="board-home-name" text="HOME" class="board__team-name" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="board__score" picking-mode="Ignore">
+                        <ui:Label name="board-home-score" text="0" class="board__goals" picking-mode="Ignore" />
+                        <ui:Label text="-" class="board__dash" picking-mode="Ignore" />
+                        <ui:Label name="board-away-score" text="0" class="board__goals" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="board__team board__team--away" picking-mode="Ignore">
+                        <ui:Label name="board-away-name" text="AWAY" class="board__team-name" picking-mode="Ignore" />
+                        <cis:CISCrest name="board-away-crest" class="board__crest" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="board-scorers" class="board__scorers" picking-mode="Ignore">
+                    <ui:VisualElement name="board-home-scorers" class="board__scorer-list" picking-mode="Ignore" />
+                    <ui:VisualElement name="board-away-scorers" class="board__scorer-list board__scorer-list--away" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- =============================== PAUSE =============================== -->
+        <ui:VisualElement name="pause" class="pause">
+            <ui:VisualElement class="pause__backdrop cis-fill" picking-mode="Ignore" />
+            <ui:VisualElement class="pause__left" picking-mode="Ignore">
+                <ui:VisualElement class="pause__left-bg cis-fill cis-grad-fade-left" picking-mode="Ignore" />
+                <ui:VisualElement class="cis-brand" picking-mode="Ignore">
+                    <ui:VisualElement class="cis-brand__mark" picking-mode="Ignore">
+                        <ui:Label text="CIS" class="cis-brand__mark-text" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:Label text="SOCCER" class="cis-brand__word" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:Label text="PAUSED" class="pause__title" picking-mode="Ignore" />
+
+                <ui:VisualElement class="pause__score" picking-mode="Ignore">
+                    <cis:CISCrest name="pause-home-crest" class="pause__crest" picking-mode="Ignore" />
+                    <ui:Label name="pause-home-name" text="HOM" class="pause__team" picking-mode="Ignore" />
+                    <ui:Label name="pause-score" text="0 - 0" class="pause__score-text" picking-mode="Ignore" />
+                    <ui:Label name="pause-away-name" text="AWY" class="pause__team" picking-mode="Ignore" />
+                    <cis:CISCrest name="pause-away-crest" class="pause__crest" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:Label name="pause-time" text="00:00" class="pause__time" picking-mode="Ignore" />
+
+                <ui:VisualElement class="pause__menu" picking-mode="Ignore">
+                    <cis:CISButton name="pause-resume" label="RESUME" icon="Play" class="cis-btn--menu" />
+                    <cis:CISSpinner name="pause-camera" label="CAMERA" />
+                    <cis:CISSpinner name="pause-quality" label="QUALITY" show-pips="true" />
+                    <cis:CISSpinner name="pause-volume" label="VOLUME" show-pips="true" />
+                    <cis:CISButton name="pause-leave" label="LEAVE MATCH" icon="Exit" class="cis-btn--menu cis-btn--danger" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="pause__right cis-panel" picking-mode="Ignore">
+                <ui:Label text="LIVE" class="cis-eyebrow pause__live" picking-mode="Ignore" />
+                <ui:Label text="MATCH FACTS" class="section-title" picking-mode="Ignore" />
+                <ui:VisualElement class="pause__stats-head" picking-mode="Ignore">
+                    <ui:Label name="pause-stats-home" text="HOME" class="pause__stats-team" picking-mode="Ignore" />
+                    <ui:Label name="pause-stats-away" text="AWAY" class="pause__stats-team pause__stats-team--away" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement name="pause-stats" class="pause__stats" picking-mode="Ignore" />
+            </ui:VisualElement>
+
+            <ui:VisualElement name="leave-dialog" class="cis-modal-backdrop">
+                <ui:VisualElement class="cis-modal">
+                    <ui:VisualElement class="cis-modal__accent quit__accent" picking-mode="Ignore" />
+                    <ui:Label text="LEAVE MATCH?" class="cis-modal__title cis-display" picking-mode="Ignore" />
+                    <ui:Label text="The current match will be abandoned and you'll return to the main menu." class="cis-modal__body" picking-mode="Ignore" />
+                    <ui:VisualElement class="cis-modal__actions" picking-mode="Ignore">
+                        <cis:CISButton name="leave-no" label="KEEP PLAYING" icon="Back" />
+                        <cis:CISButton name="leave-yes" label="LEAVE" icon="Exit" class="cis-btn--danger" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- =============================== FULL TIME =============================== -->
+        <ui:VisualElement name="fulltime" class="fulltime">
+            <ui:VisualElement class="cis-fill cis-grad-menu" picking-mode="Ignore" />
+            <ui:VisualElement class="fulltime__content" picking-mode="Ignore">
+                <ui:Label text="FINAL WHISTLE" class="cis-eyebrow fulltime__eyebrow" picking-mode="Ignore" />
+                <ui:Label text="FULL TIME" class="fulltime__title" picking-mode="Ignore" />
+
+                <ui:VisualElement class="fulltime__result" picking-mode="Ignore">
+                    <ui:VisualElement class="fulltime__team" picking-mode="Ignore">
+                        <cis:CISCrest name="ft-home-crest" bake-size="512" class="fulltime__crest" picking-mode="Ignore" />
+                        <ui:Label name="ft-home-name" text="HOME" class="fulltime__team-name" picking-mode="Ignore" />
+                        <ui:VisualElement name="ft-home-scorers" class="fulltime__scorers" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="fulltime__score" picking-mode="Ignore">
+                        <ui:Label name="ft-home-score" text="0" class="fulltime__goals" picking-mode="Ignore" />
+                        <ui:Label text="-" class="fulltime__dash" picking-mode="Ignore" />
+                        <ui:Label name="ft-away-score" text="0" class="fulltime__goals" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="fulltime__team" picking-mode="Ignore">
+                        <cis:CISCrest name="ft-away-crest" bake-size="512" class="fulltime__crest" picking-mode="Ignore" />
+                        <ui:Label name="ft-away-name" text="AWAY" class="fulltime__team-name" picking-mode="Ignore" />
+                        <ui:VisualElement name="ft-away-scorers" class="fulltime__scorers" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement class="fulltime__stats cis-panel" picking-mode="Ignore">
+                    <ui:VisualElement name="ft-stats-left" class="fulltime__stats-col" picking-mode="Ignore" />
+                    <ui:VisualElement class="fulltime__stats-divider" picking-mode="Ignore" />
+                    <ui:VisualElement name="ft-stats-right" class="fulltime__stats-col" picking-mode="Ignore" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="cis-actions fulltime__actions" picking-mode="Ignore">
+                    <cis:CISButton name="ft-continue" label="CONTINUE" icon="ChevronRight" class="cis-btn--primary cis-btn--large" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

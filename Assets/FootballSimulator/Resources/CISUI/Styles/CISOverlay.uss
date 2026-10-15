@@ -1,0 +1,120 @@
+/* =====================================================================
+   CIS SOCCER — overlay layer: loading curtain, toast, error dialog
+   ===================================================================== */
+
+.curtain {
+    background-color: var(--cis-bg);
+}
+
+.curtain.cis-screen {
+    translate: 0 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.curtain__center {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.curtain__title {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 22px;
+    letter-spacing: 12px;
+    color: var(--cis-text-dim);
+    margin-top: 34px;
+}
+
+.curtain__footer {
+    position: absolute;
+    left: 88px;
+    right: 88px;
+    bottom: 84px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.curtain__tip-wrap {
+    margin-left: 24px;
+    flex-shrink: 1;
+}
+
+.curtain__tip {
+    font-size: 21px;
+    margin-top: 6px;
+    white-space: normal;
+    color: var(--cis-text);
+    transition: opacity 0.3s;
+}
+
+.curtain__tip--out {
+    opacity: 0;
+}
+
+.curtain__progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+.curtain__bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 34%;
+}
+
+.toast {
+    position: absolute;
+    right: 48px;
+    bottom: 48px;
+    flex-direction: row;
+    align-items: center;
+    height: 58px;
+    padding: 0 26px 0 16px;
+    border-radius: 29px;
+    background-color: var(--cis-surface-solid);
+    border-width: 1px;
+    border-color: var(--cis-stroke-strong);
+}
+
+.toast__text {
+    -unity-font: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    -unity-font-definition: url("../../../Arts/UI/Fonts/Oswald-Bold.ttf");
+    font-size: 18px;
+    letter-spacing: 3px;
+    margin-left: 14px;
+}
+
+.error__accent {
+    background-color: var(--cis-danger);
+}
+
+.error__eyebrow {
+    color: var(--cis-danger);
+    margin-bottom: 6px;
+}
+
+/* modal pop-in used by every dialog */
+.cis-modal-backdrop.cis-screen {
+    translate: 0 0;
+}
+
+.cis-screen > .cis-modal {
+    scale: 0.95 0.95;
+    transition: scale 0.28s ease-out-back;
+}
+
+.cis-screen--in > .cis-modal {
+    scale: 1 1;
+}

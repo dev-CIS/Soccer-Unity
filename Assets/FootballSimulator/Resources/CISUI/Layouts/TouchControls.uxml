@@ -1,0 +1,54 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:cis="FStudio.UIToolkit" editor-extension-mode="False">
+    <ui:VisualElement name="touch-root" class="cis-root cis-fill" picking-mode="Ignore">
+
+        <ui:VisualElement name="touch-controls" class="touch__controls cis-fill" picking-mode="Ignore">
+            <!-- floating joystick: touch anywhere in the zone -->
+            <ui:VisualElement name="touch-stick-zone" class="touch__stick-zone">
+                <ui:Label text="DRAG TO MOVE" class="touch__stick-hint" picking-mode="Ignore" />
+                <ui:VisualElement name="touch-stick-base" class="touch__stick-base" picking-mode="Ignore">
+                    <ui:VisualElement class="touch__stick-ring" picking-mode="Ignore" />
+                    <ui:VisualElement name="touch-stick-knob" class="touch__stick-knob" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- action buttons -->
+            <ui:VisualElement class="touch__cluster" picking-mode="Ignore">
+                <ui:VisualElement name="touch-y" class="touch__btn touch__btn--y">
+                    <ui:Label text="Y" class="touch__btn-key" picking-mode="Ignore" />
+                    <ui:Label text="THROUGH" class="touch__btn-label" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement name="touch-x" class="touch__btn touch__btn--x">
+                    <ui:Label text="X" class="touch__btn-key" picking-mode="Ignore" />
+                    <ui:Label text="SHOOT" class="touch__btn-label" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement name="touch-b" class="touch__btn touch__btn--b">
+                    <ui:Label text="B" class="touch__btn-key" picking-mode="Ignore" />
+                    <ui:Label text="TACKLE" class="touch__btn-label" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement name="touch-a" class="touch__btn touch__btn--a">
+                    <ui:Label text="A" class="touch__btn-key" picking-mode="Ignore" />
+                    <ui:Label text="PASS" class="touch__btn-label" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="touch-lb" class="touch__pill touch__pill--switch">
+                <cis:CISIcon kind="Users" class="touch__pill-icon" picking-mode="Ignore" />
+                <ui:Label text="SWITCH" class="touch__pill-label" picking-mode="Ignore" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="touch__tactics" picking-mode="Ignore">
+                <ui:VisualElement name="touch-tactic-down" class="touch__mini">
+                    <cis:CISIcon kind="ChevronLeft" class="touch__mini-icon" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:Label text="TACTIC" class="touch__tactics-label" picking-mode="Ignore" />
+                <ui:VisualElement name="touch-tactic-up" class="touch__mini">
+                    <cis:CISIcon kind="ChevronRight" class="touch__mini-icon" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="touch-pause" class="touch__pause">
+            <cis:CISIcon kind="Pause" class="touch__pause-icon" picking-mode="Ignore" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

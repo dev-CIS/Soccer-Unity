@@ -1,0 +1,48 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:cis="FStudio.UIToolkit" editor-extension-mode="False">
+    <ui:VisualElement name="overlay-root" class="cis-root cis-fill" picking-mode="Ignore">
+
+        <!-- Full-screen match loading curtain (BigLoadingEvent) -->
+        <ui:VisualElement name="curtain" class="curtain">
+            <ui:VisualElement class="cis-fill cis-grad-menu" picking-mode="Ignore" />
+            <ui:VisualElement class="curtain__center" picking-mode="Ignore">
+                <ui:VisualElement class="cis-brand cis-brand--large" picking-mode="Ignore">
+                    <ui:VisualElement class="cis-brand__mark" picking-mode="Ignore">
+                        <ui:Label text="CIS" class="cis-brand__mark-text" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:Label text="SOCCER" class="cis-brand__word" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:Label name="curtain-title" text="PREPARING MATCH" class="curtain__title" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement class="curtain__footer" picking-mode="Ignore">
+                <cis:CISLoader picking-mode="Ignore" />
+                <ui:VisualElement class="curtain__tip-wrap" picking-mode="Ignore">
+                    <ui:Label text="TIP" class="cis-eyebrow" picking-mode="Ignore" />
+                    <ui:Label name="curtain-tip" text="" class="curtain__tip" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="curtain__progress" picking-mode="Ignore">
+                <ui:VisualElement name="curtain-bar" class="curtain__bar cis-grad-accent" picking-mode="Ignore" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Small loading toast (LoadingEvent) -->
+        <ui:VisualElement name="toast" class="toast" picking-mode="Ignore">
+            <cis:CISLoader class="cis-loader--small" picking-mode="Ignore" />
+            <ui:Label name="toast-text" text="LOADING" class="toast__text" picking-mode="Ignore" />
+        </ui:VisualElement>
+
+        <!-- Error dialog (ErrorEvent) -->
+        <ui:VisualElement name="error" class="cis-modal-backdrop">
+            <ui:VisualElement class="cis-modal">
+                <ui:VisualElement class="cis-modal__accent error__accent" picking-mode="Ignore" />
+                <ui:Label text="ERROR" class="cis-eyebrow error__eyebrow" picking-mode="Ignore" />
+                <ui:Label text="SOMETHING WENT WRONG" class="cis-modal__title cis-display" picking-mode="Ignore" />
+                <ui:Label name="error-text" text="" class="cis-modal__body" picking-mode="Ignore" />
+                <ui:VisualElement class="cis-modal__actions">
+                    <cis:CISButton name="error-ok" label="OK" icon="Check" class="cis-btn--primary" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,54 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:cis="FStudio.UIToolkit" editor-extension-mode="False">
+    <ui:VisualElement name="card" class="team-card">
+        <ui:VisualElement name="glow" class="team-card__glow cis-grad-glow" picking-mode="Ignore" />
+        <ui:VisualElement name="stripe" class="team-card__stripe" picking-mode="Ignore" />
+
+        <ui:VisualElement class="team-card__header" picking-mode="Ignore">
+            <ui:Label name="side" text="HOME" class="team-card__side" picking-mode="Ignore" />
+            <ui:VisualElement name="controller" class="team-card__controller" picking-mode="Ignore">
+                <cis:CISIcon kind="Gamepad" class="team-card__controller-icon" picking-mode="Ignore" />
+                <ui:Label name="controller-text" text="YOU" class="team-card__controller-text" picking-mode="Ignore" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement class="team-card__crest-row" picking-mode="Ignore">
+            <cis:CISIcon name="prev" kind="ChevronLeft" class="team-card__arrow" />
+            <ui:VisualElement class="team-card__crest-wrap" picking-mode="Ignore">
+                <cis:CISCrest name="crest" bake-size="512" class="team-card__crest" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <cis:CISIcon name="next" kind="ChevronRight" class="team-card__arrow" />
+        </ui:VisualElement>
+
+        <ui:Label name="name" text="TEAM" class="team-card__name" picking-mode="Ignore" />
+        <ui:Label name="formation" text="4-4-2" class="team-card__formation" picking-mode="Ignore" />
+
+        <ui:VisualElement class="team-card__ratings" picking-mode="Ignore">
+            <cis:CISRatingBadge name="ovr" caption="OVR" picking-mode="Ignore" />
+            <ui:VisualElement class="team-card__lines" picking-mode="Ignore">
+                <ui:VisualElement class="line-stat" picking-mode="Ignore">
+                    <ui:Label text="ATT" class="line-stat__label" picking-mode="Ignore" />
+                    <ui:VisualElement class="line-stat__track" picking-mode="Ignore">
+                        <ui:VisualElement name="att-bar" class="line-stat__fill line-stat__fill--att" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:Label name="att" text="0" class="line-stat__value" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement class="line-stat" picking-mode="Ignore">
+                    <ui:Label text="MID" class="line-stat__label" picking-mode="Ignore" />
+                    <ui:VisualElement class="line-stat__track" picking-mode="Ignore">
+                        <ui:VisualElement name="mid-bar" class="line-stat__fill line-stat__fill--mid" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:Label name="mid" text="0" class="line-stat__value" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement class="line-stat" picking-mode="Ignore">
+                    <ui:Label text="DEF" class="line-stat__label" picking-mode="Ignore" />
+                    <ui:VisualElement class="line-stat__track" picking-mode="Ignore">
+                        <ui:VisualElement name="def-bar" class="line-stat__fill line-stat__fill--def" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                    <ui:Label name="def" text="0" class="line-stat__value" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:Label text="CLICK TO BROWSE ALL CLUBS" class="team-card__hint" picking-mode="Ignore" />
+    </ui:VisualElement>
+</ui:UXML>
