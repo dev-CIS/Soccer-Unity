@@ -158,7 +158,10 @@ namespace FStudio.MatchEngine.Balls {
             ballVel.y = Mathf.Clamp(ballVel.y, -MAX_VELOCTIY_POW, MAX_VELOCTIY_POW);
             ballVel.z = Mathf.Clamp(ballVel.z, -MAX_VELOCTIY_POW, MAX_VELOCTIY_POW);
 
-            rigidbody.velocity = ballVel;
+            // a held ball is kinematic; writing its velocity logs a warning every frame.
+            if (!rigidbody.isKinematic) {
+                rigidbody.velocity = ballVel;
+            }
 
             ballShadow.position = ballPos;
             // ball shadow power.
@@ -246,8 +249,6 @@ namespace FStudio.MatchEngine.Balls {
                     followSpeedProgress + deltaTime * holdedBallFollowSpeed * speedMod);
 
                 followSpeed = followSpeedCurve.Evaluate(followSpeedProgress) * 1;
-
-                rigidbody.velocity = Vector3.zero;
 
                 var targetPosition = Vector3.Lerp(
                     holdedPosition,
@@ -532,13 +533,14 @@ namespace FStudio.MatchEngine.Balls {
         public void ResetBall (Vector3 target) {
             Debug.Log("Ball Reset ()");
             target.y = 0.1f;
-            rigidbody.velocity = Vector3.zero;
-            rigidbody.angularVelocity = Vector3.zero;
             transform.position = target;
             rigidbody.MovePosition(target);
             LastHolder = null;
             LastTouchedPlayer = null;
             Release();
+            // after Release, so the body is no longer kinematic.
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
         }
 
         private void OnCollisionEnter (Collision collision) {

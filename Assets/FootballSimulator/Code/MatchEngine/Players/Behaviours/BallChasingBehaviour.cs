@@ -51,6 +51,10 @@ namespace FStudio.MatchEngine.Players.Behaviours {
 
         public PlayerBase ActivePlayer => Player;
 
+        // Reused by AmITheChaser every evaluation instead of allocating LINQ queries.
+        private readonly List<(PlayerBase x, float distance)> teamChasers = new List<(PlayerBase x, float distance)>(11);
+        private readonly List<(PlayerBase x, float distance)> chasers = new List<(PlayerBase x, float distance)>(11);
+
         public override bool Behave (bool isAlreadyActive) {
             if (ball.HolderPlayer != null) {
                 return false;
@@ -74,16 +78,18 @@ namespace FStudio.MatchEngine.Players.Behaviours {
             }
 
             if (isAlreadyActive) {
-                Log(this, $"Chasing active with {chasingAct}");
+                if (Player.PlayerController.IsDebuggerEnabled) {
+                    Log(this, $"Chasing active with {chasingAct}");
+                }
 
                 // check chasing environment.
                 if (!EnvironmentCheckForChasing()) {
-                    Log(this, $"Environment is not suitable for chasing.");
+                    Log(this, "Environment is not suitable for chasing.");
                     return false;
                 }
 
                 if (IsTheBallGoingOutside ()) {
-                    Log(this, $"Ball is going outside, no need for chasing.");
+                    Log(this, "Ball is going outside, no need for chasing.");
                     return false;
                 }
 
@@ -144,81 +150,121 @@ namespace FStudio.MatchEngine.Players.Behaviours {
                 GetTacticSettings (Player.GameTeam.Team.TacticPresetType, teamBehaviour).
                 HowManyPlayersWillChaseTheBall(Player.GameTeam.BallProgress);
 
-            Log(this, $"Chasing count: {chaserCount}");
+            if (debugger) {
+                Log(this, $"Chasing count: {chaserCount}");
 
-            Log(this, $"Team ball progress: " + Player.GameTeam.BallProgress);
+                Log(this, $"Team ball progress: " + Player.GameTeam.BallProgress);
+            }
 
-            var teamChasers = teammates.
-                    Where(x =>
-                    x.PlayerController.IsPhysicsEnabled &&
-                    !x.CaughtInOffside).
-                    Select (x=> (x, BallChasingDistance (x))).
-                    OrderBy(x=> x.Item2).
-                    Take(chaserCount + 1);
+            // available teammates ordered by chasing distance, closest first (stable, like OrderBy).
+            teamChasers.Clear();
+            foreach (var teammate in teammates) {
+                if (!teammate.PlayerController.IsPhysicsEnabled || teammate.CaughtInOffside) {
+                    continue;
+                }
 
-            var chasersAsArray = teamChasers.ToArray();
+                var distance = BallChasingDistance(teammate);
+                int index = teamChasers.Count;
+                while (index > 0 && teamChasers[index - 1].distance > distance) {
+                    index--;
+                }
+                teamChasers.Insert(index, (teammate, distance));
+            }
+
+            // Take (chaserCount + 1).
+            int teamChasersLength = Mathf.Clamp(chaserCount + 1, 0, teamChasers.Count);
 
             var requiredChasers = 1;
 
-            for (int i=1, length= chasersAsArray.Length; i<length; i++) {
-                if (chasersAsArray[i].Item2 / LIMIT_CHASERS_BY_DISTANCE <= i+1) {
+            for (int i=1; i<teamChasersLength; i++) {
+                if (teamChasers[i].distance / LIMIT_CHASERS_BY_DISTANCE <= i+1) {
                     requiredChasers++;
                 } else {
                     break;
                 }
             }
 
-            Log(this, $"Required chasers: {requiredChasers}");
-
-            // fix by required chasers.
-            teamChasers = teamChasers.Take(requiredChasers);
-
-            IEnumerable <(PlayerBase x, float distance)> chasers;
-            (PlayerBase x, float distance) myChaser;
-
-            if (Player.MatchPlayer.Position != FStudio.Data.Positions.GK) {
-                var bests = teamChasers.Where(x => !x.x.IsGK).Take(chaserCount);
-
-                chasers = bests.Where (x=>x.x == Player).Select (x=>(x.x, x.Item2));
-            } else {
-                // only if we are the closest for GK.
-                chasers = teamChasers.Take (1).Select(x => (x.x, x.Item2));
+            if (debugger) {
+                Log(this, $"Required chasers: {requiredChasers}");
             }
 
-            myChaser = chasers.FirstOrDefault(x => x.x == Player);
+            // fix by required chasers.
+            teamChasersLength = Mathf.Min(teamChasersLength, requiredChasers);
 
-            if (myChaser.x != null) {
+            chasers.Clear();
+
+            if (Player.MatchPlayer.Position != FStudio.Data.Positions.GK) {
+                // the best chaserCount outfield players, keeping only us.
+                int picked = 0;
+                for (int i = 0; i < teamChasersLength; i++) {
+                    var teamChaser = teamChasers[i];
+                    if (teamChaser.x.IsGK) {
+                        continue;
+                    }
+
+                    if (picked >= chaserCount) {
+                        break;
+                    }
+
+                    picked++;
+
+                    if (teamChaser.x == Player) {
+                        chasers.Add(teamChaser);
+                    }
+                }
+            } else if (teamChasersLength > 0) {
+                // only if we are the closest for GK.
+                chasers.Add(teamChasers[0]);
+            }
+
+            int myChaserIndex = -1;
+            for (int i = 0; i < chasers.Count; i++) {
+                if (chasers[i].x == Player) {
+                    myChaserIndex = i;
+                    break;
+                }
+            }
+
+            if (myChaserIndex >= 0) {
+                var myChaser = chasers[myChaserIndex];
+
                 // we are chaser.
                 ChasingDistance = myChaser.distance;
 
-                Log(this, $"We should chase, our chasing distance is {ChasingDistance}");
-                
-                // check opponent chasers.
-                var opponentChasers = opponents.
-                    Where(x => x.ActiveBehaviour is BallChasingBehaviour || x.ActiveBehaviour is BallChasingWithoutCondition).
-                    Select (x=>x.ActiveBehaviour as IBallChasing);
+                if (debugger) {
+                    Log(this, $"We should chase, our chasing distance is {ChasingDistance}");
+                }
 
-                if (opponentChasers.Any ()) {
+                // check opponent chasers.
+                IBallChasing closestOpponentChaser = null;
+                foreach (var opponent in opponents) {
+                    if (IsBallChaser(opponent, out var opponentChaser) &&
+                        (closestOpponentChaser == null || opponentChaser.ChasingDistance < closestOpponentChaser.ChasingDistance)) {
+                        closestOpponentChaser = opponentChaser;
+                    }
+                }
+
+                if (closestOpponentChaser != null) {
                     // check for relax mode.
-                    var closestOpponentChaser = opponentChasers.OrderBy(x => x.ChasingDistance).FirstOrDefault ();
                     var diff = closestOpponentChaser.ChasingDistance - myChaser.distance;
                     relaxation = Mathf.Max (0, diff);
                 }
 
                 if (Player.PlayerFieldProgress < MAX_PROGRESS_FOR_CAUTION && !ball.IsOnCrossMode && ball.transform.position.y < MAX_BALL_HEIGHT_FOR_CAUTION) {
-                    foreach (var opChaser in opponentChasers) {
-                        if (opChaser.ChasingDistance > 0 && opChaser.ChasingDistance < ChasingDistance) {
+                    foreach (var opponent in opponents) {
+                        if (IsBallChaser(opponent, out var opChaser) &&
+                            opChaser.ChasingDistance > 0 && opChaser.ChasingDistance < ChasingDistance) {
                             // he is behind of us. Closer to our goal net.
-                            Log(this, $"We will chase with caution.");
+                            Log(this, "We will chase with caution.");
 
                             return (BallChasingResult.ChaserTrueButCaution, relaxation);
                         }
                     }
                 }
 
-                var result = chasers.ToList().FindIndex(x => x.x == Player) == 0 ? BallChasingResult.ChaserTrue : BallChasingResult.SecondaryChaser;
+                var result = myChaserIndex == 0 ? BallChasingResult.ChaserTrue : BallChasingResult.SecondaryChaser;
 
-                Log(this, result == BallChasingResult.ChaserTrue ? "We will chase as we can." : $"We will chase with relax mode.");
+                Log(this, result == BallChasingResult.ChaserTrue ? "We will chase as we can." : "We will chase with relax mode.");
 
                 return (result,relaxation);
             }
@@ -226,6 +272,16 @@ namespace FStudio.MatchEngine.Players.Behaviours {
             ChasingDistance = -1;
 
             return (BallChasingResult.None, relaxation);
+        }
+
+        private static bool IsBallChaser (PlayerBase player, out IBallChasing chaser) {
+            if (player.ActiveBehaviour is BallChasingBehaviour || player.ActiveBehaviour is BallChasingWithoutCondition) {
+                chaser = player.ActiveBehaviour as IBallChasing;
+                return true;
+            }
+
+            chaser = null;
+            return false;
         }
 
         public static float BallChasingDistance (PlayerBase target) {
@@ -247,14 +303,15 @@ namespace FStudio.MatchEngine.Players.Behaviours {
         }
 
         protected bool EnvironmentCheckForChasing () {
-            var ourTeamChasers = teammates.Where(x => x != Player &&
-            (x.ActiveBehaviour is BallChasingBehaviour || x.ActiveBehaviour is BallChasingWithoutCondition));
-
             var myChasingDistance = BallChasingDistance(Player);
 
             var subtractor = DISTANCE_TO_EACHOTHER_SUBTRACT_BY_BALLPROGRESS.Evaluate(Player.GameTeam.BallProgress);
 
-            foreach (var chaser in ourTeamChasers) {
+            foreach (var chaser in teammates) {
+                if (chaser == Player || !IsBallChaser(chaser, out _)) {
+                    continue;
+                }
+
                 var chasingDistance = BallChasingDistance(chaser);
 
                 if (chasingDistance < myChasingDistance) {

@@ -354,17 +354,25 @@ namespace FStudio.MatchEngine.Players {
                 return;
             }
 
-            var forcedOnes = Behaviours.Where(x => x.ForceBehaviour);
+            bool anyForced = false;
 
-            if (forcedOnes.Any()) {
-                foreach (var forced in forcedOnes) {
-                    if (PlayerController.IsDebuggerEnabled) {
-                        Debug.Log($"[ProcessBehaviours] Forced behaviour => {forced.GetType()}");
-                    }
-
-                    forced.Behave(ActiveBehaviour == forced);
+            foreach (var forced in Behaviours) {
+                if (!forced.ForceBehaviour) {
+                    continue;
                 }
 
+                anyForced = true;
+
+                if (PlayerController.IsDebuggerEnabled) {
+                    Debug.Log($"[ProcessBehaviours] Forced behaviour => {forced.GetType()}");
+                }
+
+                var perfForced = FStudio.Diagnostics.PerfProbe.Begin(); // PERF PROBE
+                forced.Behave(ActiveBehaviour == forced);
+                FStudio.Diagnostics.PerfProbe.End(forced.GetType(), perfForced); // PERF PROBE
+            }
+
+            if (anyForced) {
                 return;
             }
 
@@ -377,7 +385,12 @@ namespace FStudio.MatchEngine.Players {
                         Debug.Log($"[ProcessBehaviours] Active behaviour => {ActiveBehaviour.GetType()}");
                     }
 
-                    if (!ActiveBehaviour.Behave(true)) {
+                    var perfActiveType = ActiveBehaviour.GetType(); // PERF PROBE
+                    var perfActive = FStudio.Diagnostics.PerfProbe.Begin(); // PERF PROBE
+                    var stillActive = ActiveBehaviour.Behave(true);
+                    FStudio.Diagnostics.PerfProbe.End(perfActiveType, perfActive); // PERF PROBE
+
+                    if (!stillActive) {
                         ActiveBehaviour = null;
                     }
 
@@ -389,7 +402,11 @@ namespace FStudio.MatchEngine.Players {
 
             foreach (var behaviour in Behaviours) {
                 bool isActiveBehaviour = behaviour == ActiveBehaviour;
-                if (behaviour.Behave(isActiveBehaviour)) {
+                var perfBehaviour = FStudio.Diagnostics.PerfProbe.Begin(); // PERF PROBE
+                var behaved = behaviour.Behave(isActiveBehaviour);
+                FStudio.Diagnostics.PerfProbe.End(behaviour.GetType(), perfBehaviour); // PERF PROBE
+
+                if (behaved) {
                     ActiveBehaviour = behaviour;
                     NextBehaviour = time + BEHAVIOUR_CHANGE_OFFSET_AS_SECONDS;
 
@@ -411,12 +428,27 @@ namespace FStudio.MatchEngine.Players {
         /// </summary>
         /// <returns></returns>
         public bool CanMyMarkersChaseMe (float carefulness) {
-            var chasers = Markers.Members.Where (x=>x.PlayerController.IsPhysicsEnabled).Select(marker => 
-            (marker, CanChaseMe(marker, in carefulness)));
+            chaserTarget = null;
 
-            chaserTarget = chasers.OrderBy(x => x.Item2.distance).FirstOrDefault().marker;
+            bool anyCanChase = false;
+            float closestDistance = float.MaxValue;
 
-            return chasers.Where(x => x.Item2.result).Any();
+            foreach (var marker in Markers.Members) {
+                if (!marker.PlayerController.IsPhysicsEnabled) {
+                    continue;
+                }
+
+                var chase = CanChaseMe(marker, in carefulness);
+
+                if (chaserTarget == null || chase.distance < closestDistance) {
+                    chaserTarget = marker;
+                    closestDistance = chase.distance;
+                }
+
+                anyCanChase |= chase.result;
+            }
+
+            return anyCanChase;
         }
 
         public Vector3 PredictPositionWithVelocityMod (in float velocityMod) {

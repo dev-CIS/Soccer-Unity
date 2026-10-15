@@ -8,7 +8,10 @@ namespace FStudio.MatchEngine.Graphics.EventRenderer {
         protected override Transform[] prefabs() => m_prefabs;
 
         public Transform Get () {
-            return pool[0].Get();
+            var shadow = pool[0].Get();
+            // the previous owner deactivates it on destroy.
+            shadow.gameObject.SetActive(true);
+            return shadow;
         }
     }
 }

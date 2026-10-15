@@ -7,6 +7,8 @@ using FStudio.MatchEngine.Events;
 using System.Threading.Tasks;
 
 namespace FStudio.MatchEngine.Cameras {
+    // Runs after MatchManager / Ball LateUpdate so it follows this frame's positions.
+    [DefaultExecutionOrder (1000)]
     [RequireComponent (typeof (Camera))]
     public class CameraSystem : SceneObjectSingleton<CameraSystem> {
         public new Camera camera = default;
@@ -83,12 +85,12 @@ namespace FStudio.MatchEngine.Cameras {
             camera = GetComponent<Camera>();
         }
 
-        private void Update() {
+        private void LateUpdate() {
             if (target == null) {
                 return;
             }
 
-            var dT = Time.fixedDeltaTime;
+            var dT = Time.deltaTime;
 
             if (isInTransition) {
                 transitionValue += dT * transitionSpeed;

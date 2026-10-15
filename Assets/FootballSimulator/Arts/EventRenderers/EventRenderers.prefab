@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1386f91ee54f96543a05d30f91fdd73f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolSize: 100
+  poolSize: 60
   holder: {fileID: 8085398381061767250}
   m_prefabs:
   - {fileID: 2566908791261060849, guid: 96b12ac60cc7f0044a8eef73c76f280b, type: 3}
@@ -461,7 +461,6 @@ MonoBehaviour:
   m_prefabs:
   - {fileID: 4630051659040753158, guid: a0cf70f2ca347db4d993d81821048d1c, type: 3}
   - {fileID: 4630051659040753158, guid: d2ff35c9e1c99bb4d93632bf6f42aee3, type: 3}
-  - {fileID: 4630051659040753158, guid: 255d37e3a5a475d4f9ef1d3af9ee2c63, type: 3}
   camera: {fileID: 7386885304829744630}
 --- !u!1 &7162282442267979269
 GameObject:
@@ -507,7 +506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2076637a6f4dd4b418e38d52b2a1dfc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolSize: 50
+  poolSize: 30
   holder: {fileID: 8060795618452653784}
   m_prefabs:
   - {fileID: 4630051659040753158, guid: dc68a4e6b2b67dd49bd23e3ca37e11e6, type: 3}

@@ -13,11 +13,18 @@ namespace FStudio.MatchEngine.Players.PlayerController {
     [RequireComponent (typeof (Animator))]
     [RequireComponent (typeof (PlayerGraphic))]
     public class PlayerAnimator : MonoBehaviour {       
-        private const string BALL_DRIBBLE_SPEED_ANIMATOR_FLOAT_NAME = "Speed";
+        private static readonly int BALL_DRIBBLE_SPEED_HASH = Animator.StringToHash("Speed");
+        private static readonly int FAKE_CLOTH_POWER_ID = Shader.PropertyToID("_FakeClothPower");
+        private static readonly int SHADOW_POWER_ID = Shader.PropertyToID("_Power");
 
         [SerializeField] private Animator animator;
 
         private Dictionary<string, int> animatorVariableHashes;
+
+        // Indexed by PlayerAnimatorVariable, so per-frame calls skip enum.ToString () allocations.
+        private int[] animatorVariableHashIds;
+
+        private readonly Dictionary<string, int> transitionHashes = new Dictionary<string, int>();
 
         [SerializeField] private IKController gkIkController;
 
@@ -59,6 +66,11 @@ namespace FStudio.MatchEngine.Players.PlayerController {
 
         private void Awake () {
             animatorVariableHashes = AnimatorEnumHasher.GetHashes<PlayerAnimatorVariable>(animator);
+
+            animatorVariableHashIds = new int[(int)PlayerAnimatorVariable.ParameterCount];
+            for (int i = 0; i < animatorVariableHashIds.Length; i++) {
+                animatorVariableHashIds[i] = Animator.StringToHash(((PlayerAnimatorVariable)i).ToString());
+            }
             
             footLShadow = FootShadowRenderer.Current.Get();
             footRShadow = FootShadowRenderer.Current.Get();
@@ -80,14 +92,21 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         }
 
         public bool IsCurrentClipBlocker (in string[] blockers) {
-            foreach (var anim in blockers) {
-                var hash = animatorVariableHashes[anim];
+            var stateHash = animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+            var transition = animator.GetAnimatorTransitionInfo(0);
 
-                if (animator.GetCurrentAnimatorStateInfo(0).fullPathHash == hash) {
+            foreach (var anim in blockers) {
+                if (stateHash == animatorVariableHashes[anim]) {
                     return true;
                 }
 
-                if (animator.GetAnimatorTransitionInfo (0).IsName ($"{anim}Transition")) {
+                if (!transitionHashes.TryGetValue(anim, out var transitionHash)) {
+                    transitionHash = Animator.StringToHash($"{anim}Transition");
+                    transitionHashes.Add(anim, transitionHash);
+                }
+
+                // same check as AnimatorTransitionInfo.IsName, without building the string every call.
+                if (transition.nameHash == transitionHash || transition.fullPathHash == transitionHash) {
                     return true;
                 }
             }
@@ -99,14 +118,12 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             const float MIN_MOVE_SPEED_TO_MOVE = 0.5f;
 
             ballDribbleAnimator.SetFloat (
-                BALL_DRIBBLE_SPEED_ANIMATOR_FLOAT_NAME, 
+                BALL_DRIBBLE_SPEED_HASH, 
                 GetFloat(PlayerAnimatorVariable.MoveSpeed) - MIN_MOVE_SPEED_TO_MOVE);
         }
 
         private void LateUpdate () {
             void setBone (HumanBodyBones boneId, Transform target, Material material) {
-                const string SHADOW_POWER = "_Power";
-
                 var bone = animator.GetBoneTransform(boneId);
 
                 var pos = bone.position;
@@ -117,7 +134,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
                 float height = pos.y;
                 pos.y = 0;
                 float heightPow = Mathf.Max (0, 0.15f - height);
-                material.SetFloat(SHADOW_POWER, heightPow);
+                material.SetFloat(SHADOW_POWER_ID, heightPow);
             }
 
             setBone(HumanBodyBones.LeftFoot, footLShadow, footLMaterial);
@@ -130,14 +147,14 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             }
 
             Debug.Log($"[PlayerRenderer] SetTrigger () => {animatorVariable}", this);
-            animator.SetTrigger(animatorVariableHashes[animatorVariable.ToString ()]);
+            animator.SetTrigger(animatorVariableHashIds[(int)animatorVariable]);
         }
 
         public void SetBool (PlayerAnimatorVariable animatorVariable, bool value) {
             if (!gameObject.activeSelf) {
                 return;
             }
-            animator.SetBool (animatorVariableHashes[animatorVariable.ToString()], value);
+            animator.SetBool (animatorVariableHashIds[(int)animatorVariable], value);
         }
 
         public void SetLayerWeight (int layerIndex, float value) {
@@ -151,12 +168,11 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             if (!gameObject.activeSelf) {
                 return;
             }
-            animator.SetFloat (animatorVariableHashes[animatorVariable.ToString()], value);
+            animator.SetFloat (animatorVariableHashIds[(int)animatorVariable], value);
 
             switch (animatorVariable) {
                 case PlayerAnimatorVariable.MoveSpeed:
-                    const string FAKE_CLOTH_POWER = "_FakeClothPower";
-                    playerGraphic.mainRenderer.material.SetFloat(FAKE_CLOTH_POWER, value + 1);
+                    playerGraphic.mainRenderer.material.SetFloat(FAKE_CLOTH_POWER_ID, value + 1);
                     break;
             }
         }
@@ -165,14 +181,14 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             if (!gameObject.activeSelf) {
                 return 0;
             }
-            return animator.GetFloat(animatorVariableHashes[animatorVariable.ToString()]);
+            return animator.GetFloat(animatorVariableHashIds[(int)animatorVariable]);
         }
 
         private bool GetBool (PlayerAnimatorVariable animatorVariable) {
             if (!gameObject.activeSelf) {
                 return false;
             }
-            return animator.GetBool(animatorVariableHashes[animatorVariable.ToString()]);
+            return animator.GetBool(animatorVariableHashIds[(int)animatorVariable]);
         }
 
         public void SetLook (in float deltaTime, Vector3 worldPosition, float weight) {

@@ -75,46 +75,68 @@ namespace FStudio.MatchEngine.Players.Behaviours {
 
                 var holderPlayerPos = ball.HolderPlayer.Position;
 
+                var debugger = Player.PlayerController.IsDebuggerEnabled;
+
                 var holderDir = ball.HolderPlayer.Direction.normalized;
 
-                Log(this, "Holder direction: " + holderDir);
+                if (debugger) {
+                    Log(this, "Holder direction: " + holderDir);
+                }
 
                 var toGoalDot = Vector3.Dot(holderDir, (goalNet.Position - holderPlayerPos).normalized);
 
-                Log(this, $"Holder player to goal dot curve => {toGoalDot}");
+                if (debugger) {
+                    Log(this, $"Holder player to goal dot curve => {toGoalDot}");
+                }
 
                 toGoalDot = dotCurve.Evaluate (toGoalDot);
 
-                Log(this, $"Holder player to goal dot curve evaluated => {toGoalDot}");
+                if (debugger) {
+                    Log(this, $"Holder player to goal dot curve evaluated => {toGoalDot}");
+                }
 
-                Log(this, $"Holder player position => {holderPlayerPos}");
+                if (debugger) {
+                    Log(this, $"Holder player position => {holderPlayerPos}");
+                }
 
-                Log(this, $"Holder player {ball.HolderPlayer.PlayerController.UnityObject.name}");
+                if (debugger) {
+                    Log(this, $"Holder player {ball.HolderPlayer.PlayerController.UnityObject.name}");
+                }
 
                 var dot = Vector3.Dot(holderDir, (holderPlayerPos - playerPos).normalized);
 
-                Log(this, $"Go to goal net dot: {dot}");
+                if (debugger) {
+                    Log(this, $"Go to goal net dot: {dot}");
+                }
 
                 float goToGoalNet = dotCurve.Evaluate(dot);
 
-                Log(this, $"Go to goal net dot evaluated: {goToGoalNet}");
+                if (debugger) {
+                    Log(this, $"Go to goal net dot evaluated: {goToGoalNet}");
+                }
 
                 goToGoalNet *= toGoalDot;
 
                 var predicter = PlayerBase.Predicter(Player, ball.HolderPlayer);
 
-                Log(this, $"Predicted: {predicter}");
+                if (debugger) {
+                    Log(this, $"Predicted: {predicter}");
+                }
 
                 predicter += 
                     Player.PositioningMistake * 
                     Vector3.Distance (predicter, playerPos) * 
                     POSITIONING_MISTAKE_MOD;
 
-                Log(this, $"Predicter with mistake: {predicter}");
+                if (debugger) {
+                    Log(this, $"Predicter with mistake: {predicter}");
+                }
 
                 var final = Vector3.Lerp(predicter, goalNet.Position, goToGoalNet);
 
-                Log(this, $"Final pos before avoid: {final}");
+                if (debugger) {
+                    Log(this, $"Final pos before avoid: {final}");
+                }
 
                 Player.CurrentAct = Acts.GoingToTackle;
 
@@ -122,7 +144,9 @@ namespace FStudio.MatchEngine.Players.Behaviours {
                     Player.AvoidMarkers (teammates, ref final, 3);
                 }
 
-                Log(this, $"Tackle position with avoided {final}");
+                if (debugger) {
+                    Log(this, $"Tackle position with avoided {final}");
+                }
 
                 // we need to go for tackling.
                 Player.MoveTo(deltaTime, final, true);

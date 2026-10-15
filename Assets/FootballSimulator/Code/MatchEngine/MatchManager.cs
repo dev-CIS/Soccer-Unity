@@ -665,10 +665,10 @@ namespace FStudio.MatchEngine {
             float calculateDensity (GameTeam gameTeam) {
                 float totalX = 0;
 
-                var allPlayers = gameTeam.GamePlayers.Where(x => !x.IsGK);
-
-                foreach (var player in allPlayers) {
-                    totalX += player.Position.x;
+                foreach (var player in gameTeam.GamePlayers) {
+                    if (!player.IsGK) {
+                        totalX += player.Position.x;
+                    }
                 }
 
                 return totalX / gameTeam.GamePlayers.Length;
@@ -683,6 +683,7 @@ namespace FStudio.MatchEngine {
             densityPoint2.position = new Vector3(team2Density, 0, SizeOfField.y / 2);
             //
 
+            var perfTeams = FStudio.Diagnostics.PerfProbe.Begin(); // PERF PROBE
             GameTeam1.Behave(
                 in time,
                 in deltaTime,
@@ -712,6 +713,7 @@ namespace FStudio.MatchEngine {
                 goalNet2,
                 goalNet1,
                 in GameTeam1.GamePlayers);
+            FStudio.Diagnostics.PerfProbe.End("MatchManager: GameTeam.Behave x2", perfTeams); // PERF PROBE
 
             if (Referees != null) {
                 foreach (var referee in Referees) {
@@ -734,7 +736,9 @@ namespace FStudio.MatchEngine {
 
             if (Statistics != null) {
 
+                var perfStats = FStudio.Diagnostics.PerfProbe.Begin(); // PERF PROBE
                 Statistics.Update();
+                FStudio.Diagnostics.PerfProbe.End("MatchManager.FixedUpdate: Statistics", perfStats); // PERF PROBE
             } else {
                 Debug.LogError("Statistics is null");
             }
@@ -753,7 +757,21 @@ namespace FStudio.MatchEngine {
                 return;
             }
 
-            var lineDecider = players.OrderBy(x => Mathf.Abs(x.Position.x - goalNetX)).Take (2).ElementAt (1);
+            // second closest player to the goal net (ties keep array order, like OrderBy).
+            PlayerBase closest = null, lineDecider = null;
+            float closestDistance = float.MaxValue, lineDeciderDistanceToNet = float.MaxValue;
+            foreach (var player in players) {
+                var distance = Mathf.Abs(player.Position.x - goalNetX);
+                if (closest == null || distance < closestDistance) {
+                    lineDecider = closest;
+                    lineDeciderDistanceToNet = closestDistance;
+                    closest = player;
+                    closestDistance = distance;
+                } else if (lineDecider == null || distance < lineDeciderDistanceToNet) {
+                    lineDecider = player;
+                    lineDeciderDistanceToNet = distance;
+                }
+            }
 
             var position = offsideLine.position;
             position.x = lineDecider.Position.x;

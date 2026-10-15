@@ -41,20 +41,24 @@ namespace FStudio.MatchEngine.Players {
                 return (angleMod, dirToMe.normalized);
             }
 
-            var avoidanceData = targets.Where(x => 
-            !x.IsGK && 
-            x.PlayerController.IsPhysicsEnabled).
-            Select(x => avoid(x)).
-            Where(x => x.avoidancePow > 0);
+            Vector3 finalDir = Vector3.zero;
+            bool anyAvoidance = false;
 
-            if (avoidanceData.Count() == 0) {
-                return;
+            foreach (var target in targets) {
+                if (target.IsGK || !target.PlayerController.IsPhysicsEnabled) {
+                    continue;
+                }
+
+                var avoidTarget = avoid(target);
+
+                if (avoidTarget.avoidancePow > 0) {
+                    anyAvoidance = true;
+                    finalDir += avoidTarget.avoidDir * avoidTarget.avoidancePow;
+                }
             }
 
-            Vector3 finalDir = Vector3.zero;
-
-            foreach (var avoidTarget in avoidanceData) {
-                finalDir += avoidTarget.avoidDir * avoidTarget.avoidancePow;
+            if (!anyAvoidance) {
+                return;
             }
 
             Debug.DrawLine(playerPos + Vector3.up, playerPos + Vector3.up + finalDir, Color.blue, 0.05f);

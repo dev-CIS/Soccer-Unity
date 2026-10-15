@@ -13,6 +13,7 @@ namespace FStudio.MatchEngine.Graphics.EventRenderer {
             var pref = pool[prefabId].Get();
             pref.position = position;
             pref.rotation = rotation;
+            pref.gameObject.SetActive(true);
 
             camera.Render();
         }

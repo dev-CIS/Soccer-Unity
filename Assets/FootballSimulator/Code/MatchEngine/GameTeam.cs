@@ -275,6 +275,7 @@ namespace FStudio.MatchEngine {
                 in PlayerBase[] opponents) {
 
             #region Input Listeners
+            var perfSection = FStudio.Diagnostics.PerfProbe.Begin(); // PERF PROBE
             ///control free input listeners. give them a player to manage.
             for (int i = 0; i < InputListener.MAX_CONTROLLER; i++) {
                 if (inputListeners[i] != null) {
@@ -285,13 +286,18 @@ namespace FStudio.MatchEngine {
             //
             #endregion
 
+            FStudio.Diagnostics.PerfProbe.End("Team: input listeners", perfSection); // PERF PROBE
+
             TeamDensity = teamDensityX;
 
+            perfSection = FStudio.Diagnostics.PerfProbe.Begin(); // PERF PROBE
             tacticManager.Run();
+            FStudio.Diagnostics.PerfProbe.End("Team: tactic manager", perfSection); // PERF PROBE
 
             BallProgress = Mathf.Abs(goalNet.Position.x - ball.transform.position.x) / fieldEndX;
 
             // show & hide name.
+            perfSection = FStudio.Diagnostics.PerfProbe.Begin(); // PERF PROBE
             if (m_nextName < time) {
                 m_nextName = time + NAME_TIMER_DELAYER;
 
@@ -312,6 +318,7 @@ namespace FStudio.MatchEngine {
 
                 UpdateMarkings(opponents);
             }
+            FStudio.Diagnostics.PerfProbe.End("Team: names + markings", perfSection); // PERF PROBE
 
             for (int i=0; i < 11; i++) {
                 if (GamePlayers[i] != null) {
@@ -323,6 +330,7 @@ namespace FStudio.MatchEngine {
                         GamePlayers[i].Stop(deltaTime / 4f); // stop slowly.
                     }
 
+                    perfSection = FStudio.Diagnostics.PerfProbe.Begin(); // PERF PROBE
                     foreach (var behaviour in GamePlayers[i].Behaviours) {
                         behaviour.SetBehaviour(
                             GamePlayers[i],
@@ -341,7 +349,9 @@ namespace FStudio.MatchEngine {
                             in GamePlayers,
                             in opponents);
                     };
+                    FStudio.Diagnostics.PerfProbe.End("Player: SetBehaviour loop", perfSection); // PERF PROBE
 
+                    perfSection = FStudio.Diagnostics.PerfProbe.Begin(); // PERF PROBE
                     GamePlayers[i].Behave(
                         in isInputControlled,
                         in time,
@@ -356,6 +366,7 @@ namespace FStudio.MatchEngine {
                         targetGoalNet,
                         in GamePlayers,
                         in opponents);
+                    FStudio.Diagnostics.PerfProbe.End("Player: Behave (movement/controller)", perfSection); // PERF PROBE
 
                     if (!GamePlayers[i].PlayerController.IsPhysicsEnabled || GamePlayers[i].ballHitAnimationEvent != BallHitAnimationEvent.None) {
                         continue; // ignore cases.
@@ -371,7 +382,9 @@ namespace FStudio.MatchEngine {
                         continue;
                     }
 
+                    perfSection = FStudio.Diagnostics.PerfProbe.Begin(); // PERF PROBE
                     GamePlayers[i].ProcessBehaviours(in time);
+                    FStudio.Diagnostics.PerfProbe.End("Player: ProcessBehaviours (AI)", perfSection); // PERF PROBE
                 } else {
                     Debug.LogError("Player is null.");
                 }

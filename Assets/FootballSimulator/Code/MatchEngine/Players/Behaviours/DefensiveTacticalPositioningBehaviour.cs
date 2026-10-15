@@ -48,14 +48,19 @@ namespace FStudio.MatchEngine.Players.Behaviours {
 
             if (!noOffsideCheck) {
                 // pick the line holder.
-                var possibleLineHolders = teammates.Where(x => !x.IsGK && x != Player && x.IsFrontOfMe(ballPos, OFFSIDE_LINE_X_DIFF_BETWEEN_BALL));
-
+                // the deepest teammate in front of the ball (lowest x when attacking +x, highest otherwise).
                 PlayerBase lineHolder = null;
+                bool towardsPositiveX = Player.toGoalXDirection > 0;
 
-                if (Player.toGoalXDirection > 0) {
-                    lineHolder = possibleLineHolders.OrderBy(x => x.Position.x).FirstOrDefault();
-                } else {
-                    lineHolder = possibleLineHolders.OrderByDescending(x => x.Position.x).FirstOrDefault();
+                foreach (var teammate in teammates) {
+                    if (teammate.IsGK || teammate == Player || !teammate.IsFrontOfMe(ballPos, OFFSIDE_LINE_X_DIFF_BETWEEN_BALL)) {
+                        continue;
+                    }
+
+                    if (lineHolder == null ||
+                        (towardsPositiveX ? teammate.Position.x < lineHolder.Position.x : teammate.Position.x > lineHolder.Position.x)) {
+                        lineHolder = teammate;
+                    }
                 }
 
                 if (lineHolder != null && Player.IsFrontOfMe(lineHolder.Position)) {
